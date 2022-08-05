@@ -20,6 +20,7 @@
     "react-form-validator-core": "^1.1.2",
     "react-material-ui-form-validator": "^3.0.1",
     "react-scripts": "5.0.1",
+    "styled-components": "^5.3.5",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

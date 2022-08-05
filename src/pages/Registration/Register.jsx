@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import {ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
-import Button from "@mui/material/Button";
+import Buttons from "@mui/material/Button";
 import SnackBar from "../../components/common/snackBar/SnackBar";
 import {styleSheet} from "./styles"
 import {withStyles} from "@mui/styles";
@@ -11,6 +11,7 @@ import {CssBaseline, Paper} from "@mui/material";
 import {ThemeProvider} from "@emotion/react";
 import {createTheme} from "@mui/material/styles";
 import Box from "@mui/material/Box";
+import {MyButton} from "../../components/common/Button/Button";
 
 class Register extends Component {
     constructor(props) {
@@ -186,12 +187,12 @@ class Register extends Component {
 
                                         </Grid>
                                         <Box sx={{display: 'flex', justifyContent: 'flex-end'}}>
-                                            <Button type="submit" sx={{mt: 3, ml: 1}} color="secondary" variant="outlined">
+                                            <Buttons  sx={{mt: 3, ml: 1,fontSize:15,fontWeight:"bold"}} color="secondary">
                                                 Clear
-                                            </Button>
-                                            <Button type="submit" sx={{mt: 3, ml: 1}} variant="contained" color="success">
+                                            </Buttons>
+                                            <MyButton className={classes.saveBtn} type="submit" style={{mt: 3, ml: 1}}>
                                                 Save
-                                            </Button>
+                                            </MyButton>
                                         </Box>
                                     </ValidatorForm>
                                 </Grid>
