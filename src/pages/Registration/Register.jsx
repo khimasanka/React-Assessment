@@ -16,7 +16,26 @@ class Register extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            formData: {},
+            formData: {
+                email:'',
+                username:'',
+                password:'',
+                name:{
+                    firstname:'',
+                    lastname:''
+                },
+                address:{
+                    city:'',
+                    street:'',
+                    number:'',
+                    zipcode:'',
+                    geolocation:{
+                        lat:'',
+                        long:''
+                    }
+                },
+                phone:''
+            },
             alert: false,
             message: '',
             btnText: 'Save',
@@ -24,7 +43,7 @@ class Register extends Component {
     }
 
     submitUser = async () => {
-        console.log('done')
+        console.log(this.state.formData)
     }
 
     render() {
@@ -52,15 +71,18 @@ class Register extends Component {
                                             <Grid item xs={12} md={6}>
                                                 <TextValidator
                                                     required
-                                                    id="username"
-                                                    name="username"
                                                     label="First Name"
                                                     fullWidth
                                                     variant="filled"
                                                     size="small"
                                                     autoComplete="given-name"
                                                     validators={['required', 'isString', 'maxStringLength:20', 'minStringLength:2']}
-
+                                                    value={this.state.formData.name.firstname}
+                                                    onChange={(e)=>{
+                                                        let data = this.state.formData.name
+                                                        data.firstname = e.target.value
+                                                        this.setState({data});
+                                                    }}
                                                 />
                                             </Grid>
                                             <Grid item xs={12} md={6}>
@@ -72,7 +94,12 @@ class Register extends Component {
                                                     size="small"
                                                     autoComplete="given-name"
                                                     validators={['required', 'isString', 'maxStringLength:50', 'minStringLength:2']}
-
+                                                    value={this.state.formData.name.lastname}
+                                                    onChange={(e)=>{
+                                                        let data = this.state.formData.name
+                                                        data.lastname = e.target.value
+                                                        this.setState({data});
+                                                    }}
                                                 />
                                             </Grid>
                                             <Grid item xs={12} md={6}>
@@ -85,6 +112,12 @@ class Register extends Component {
                                                     type="email"
                                                     validators={['required', 'isEmail']}
                                                     errorMessages={['this field is required', 'Invalid Email']}
+                                                    value={this.state.formData.email}
+                                                    onChange={(e)=>{
+                                                        let data = this.state.formData
+                                                        data.email = e.target.value
+                                                        this.setState({data});
+                                                    }}
                                                 />
                                             </Grid>
                                             <Grid item xs={12} md={6}>
@@ -94,7 +127,12 @@ class Register extends Component {
                                                     variant="filled"
                                                     size="small"
                                                     fullWidth
-
+                                                    value={this.state.formData.username}
+                                                    onChange={(e)=>{
+                                                        let data = this.state.formData
+                                                        data.username = e.target.value
+                                                        this.setState({data});
+                                                    }}
                                                 />
                                             </Grid>
                                             <Grid item xs={12} md={6}>
@@ -108,14 +146,14 @@ class Register extends Component {
                                                     fullWidth
                                                     type="password"
                                                     autoComplete="shipping postal-code"
-                                                    /*       value={this.state.formData.password}*/
                                                     validators={['required', 'isString', 'minStringLength:7']}
                                                     errorMessages={['this field is required', 'Password too short']}
-                                                    /*    onChange={(e) => {
-                                                            let data = this.state.formData
-                                                            data.password = e.target.value
-                                                            this.setState({data})
-                                                        }}*/
+                                                    value={this.state.formData.password}
+                                                    onChange={(e)=>{
+                                                        let data = this.state.formData
+                                                        data.password = e.target.value
+                                                        this.setState({data});
+                                                    }}
                                                 />
                                             </Grid>
                                             <Grid item xs={12} md={6}>
@@ -126,6 +164,12 @@ class Register extends Component {
                                                     validators={['required', 'isString', 'minStringLength:7']}
                                                     variant="filled"
                                                     size="small"
+                                                    value={this.state.formData.address.city}
+                                                    onChange={(e)=>{
+                                                        let data = this.state.formData.address
+                                                        data.city = e.target.value
+                                                        this.setState({data});
+                                                    }}
                                                 />
                                             </Grid>
                                             <Grid item xs={12} md={6}>
@@ -135,6 +179,12 @@ class Register extends Component {
                                                     fullWidth
                                                     variant="filled"
                                                     size="small"
+                                                    value={this.state.formData.address.street}
+                                                    onChange={(e)=>{
+                                                        let data = this.state.formData.address
+                                                        data.street = e.target.value
+                                                        this.setState({data});
+                                                    }}
                                                 />
                                             </Grid>
                                             <Grid item xs={12} md={6}>
@@ -144,6 +194,12 @@ class Register extends Component {
                                                     fullWidth
                                                     variant="filled"
                                                     size="small"
+                                                    value={this.state.formData.address.number}
+                                                    onChange={(e)=>{
+                                                        let data = this.state.formData.address
+                                                        data.number = e.target.value
+                                                        this.setState({data});
+                                                    }}
                                                 />
                                             </Grid>
                                             <Grid item xs={12} md={6}>
@@ -153,6 +209,12 @@ class Register extends Component {
                                                     fullWidth
                                                     variant="filled"
                                                     size="small"
+                                                    value={this.state.formData.address.zipcode}
+                                                    onChange={(e)=>{
+                                                        let data = this.state.formData.address
+                                                        data.zipcode = e.target.value
+                                                        this.setState({data});
+                                                    }}
                                                 />
                                             </Grid>
                                             <Grid item xs={12} md={6}>
@@ -162,6 +224,12 @@ class Register extends Component {
                                                     fullWidth
                                                     variant="filled"
                                                     size="small"
+                                                    value={this.state.formData.address.geolocation.lat}
+                                                    onChange={(e)=>{
+                                                        let data = this.state.formData.address.geolocation
+                                                        data.lat = e.target.value
+                                                        this.setState({data});
+                                                    }}
                                                 />
                                             </Grid>
                                             <Grid item xs={12} md={6}>
@@ -171,6 +239,12 @@ class Register extends Component {
                                                     fullWidth
                                                     variant="filled"
                                                     size="small"
+                                                    value={this.state.formData.address.geolocation.long}
+                                                    onChange={(e)=>{
+                                                        let data = this.state.formData.address.geolocation
+                                                        data.long = e.target.value
+                                                        this.setState({data});
+                                                    }}
                                                 />
                                             </Grid>
 
@@ -183,6 +257,12 @@ class Register extends Component {
                                                     fullWidth
                                                     validators={['required', 'isNumber', 'matchRegexp:^0?(7)[0|1|2|4|5|6|7|8]-?[0-9]{7}$']}
                                                     errorMessages={['this field is required', 'Invalid Phone Number']}
+                                                    value={this.state.formData.phone}
+                                                    onChange={(e)=>{
+                                                        let data = this.state.formData
+                                                        data.phone = e.target.value
+                                                        this.setState({data});
+                                                    }}
                                                 />
                                             </Grid>
 
