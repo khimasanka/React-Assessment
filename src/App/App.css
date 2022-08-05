@@ -3,6 +3,33 @@
     margin: 0;
 }
 
+.saveBtn{
+    border-radius: 50px;
+    background: #010606;
+    white-space: nowrap;
+    padding:12px 30px;
+    color: #fff;
+    font-size:16px;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.2s ease-in-out;
+    text-decoration: none;
+
+    width:120px;
+    height:40px;
+    margin-Top:25px;
+    margin-Left:25px;
+}
+
+.saveBtn:hover{
+    transition: all 0.2s ease-in-out;
+    background: #01bf72;
+}
+
 /*
 .App {
   text-align: center;

@@ -11,7 +11,6 @@ import {CssBaseline, Paper} from "@mui/material";
 import {ThemeProvider} from "@emotion/react";
 import {createTheme} from "@mui/material/styles";
 import Box from "@mui/material/Box";
-import {MyButton} from "../../components/common/Button/Button";
 
 class Register extends Component {
     constructor(props) {
@@ -39,7 +38,7 @@ class Register extends Component {
                     <Container component="main" maxWidth="lg" sx={{mb: 4}}>
                         <Paper variant="outlined" sx={{my: {xs: 3, md: 6}, p: {xs: 2, md: 3}}}>
                             <Typography component="h1" variant="h4" align="center">
-                                Add New Car
+                               User Registration
                             </Typography>
 
                             <div className={classes.container}>
@@ -53,12 +52,14 @@ class Register extends Component {
                                             <Grid item xs={12} md={6}>
                                                 <TextValidator
                                                     required
+                                                    id="username"
+                                                    name="username"
                                                     label="First Name"
                                                     fullWidth
                                                     variant="filled"
                                                     size="small"
                                                     autoComplete="given-name"
-                                                    validators={['required', 'isString', 'maxStringLength:50', 'minStringLength:2']}
+                                                    validators={['required', 'isString', 'maxStringLength:20', 'minStringLength:2']}
 
                                                 />
                                             </Grid>
@@ -190,9 +191,9 @@ class Register extends Component {
                                             <Buttons  sx={{mt: 3, ml: 1,fontSize:15,fontWeight:"bold"}} color="secondary">
                                                 Clear
                                             </Buttons>
-                                            <MyButton className={classes.saveBtn} type="submit" style={{mt: 3, ml: 1}}>
+                                            <button className={'saveBtn'} type="submit" style={{mt: 3, ml: 1}}>
                                                 Save
-                                            </MyButton>
+                                            </button>
                                         </Box>
                                     </ValidatorForm>
                                 </Grid>
