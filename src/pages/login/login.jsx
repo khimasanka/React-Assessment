@@ -2,7 +2,6 @@ import * as React from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
@@ -21,15 +20,17 @@ class Login extends Component {
     constructor(props) {
         super(props);
         this.state={
-            username:'',
-            password:''
+            formData:{
+                username:'',
+                password:''
+            }
         }
     }
 
 
     render() {
         const handleSubmit = async () => {
-            console.log('res');
+
         };
 
         return (
@@ -59,14 +60,13 @@ class Login extends Component {
                                 id="username"
                                 label="Username"
                                 name="username"
-                                value={this.state.username}
+                                value={this.state.formData.username}
                                 autoComplete="username"
                                 autoFocus
                                 onChange={(e) => {
-                                    this.setState({
-                                        username:e.target.value
-                                    })
-                                    console.log(this.state.username)
+                                    let data = this.state.formData
+                                    data.username = e.target.value
+                                    this.setState({data})
                                 }}
                             />
                             <TextValidator
@@ -77,11 +77,11 @@ class Login extends Component {
                                 label="Password"
                                 type="password"
                                 id="password"
-                                value={this.state.password}
+                                value={this.state.formData.password}
                                 onChange={(e) => {
-                                    this.setState({
-                                        password:e.target.value
-                                    })
+                                    let data = this.state.formData
+                                    data.password = e.target.value
+                                    this.setState({data})
                                 }}
                                 autoComplete="current-password"
                             />
