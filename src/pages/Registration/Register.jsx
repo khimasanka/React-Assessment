@@ -8,6 +8,18 @@ import {styleSheet} from "./styles"
 import {withStyles} from "@mui/styles";
 
 class Register extends Component {
+    constructor(props) {
+        super(props);
+        this.state={
+            formData:{
+
+            },
+            alert: false,
+            message: '',
+            btnText:'Save',
+        }
+    }
+
     render() {
         const {classes} =this.props;
         return (
@@ -16,72 +28,67 @@ class Register extends Component {
                      <Grid  container sm={8} sx={12} lg={8} md={8} mt={4} >
                     <ValidatorForm ref="form" onError={errors => console.log(errors)}>
                         <Typography variant="h6" gutterBottom>
-                            Fill Your Data
+                            User Registration
                         </Typography>
                         <Grid container spacing={3}>
-                            <Grid item xs={12}>
+                            <Grid item xs={12} md={6}>
                                 <TextValidator
                                     required
-                                    id="name"
-                                    name="name"
-                                    label="Full Name"
+                                    label="First Name"
                                     fullWidth
-                                    autoComplete="given-name"
                                     variant="filled"
+                                    size="small"
+                                    autoComplete="given-name"
                                     validators={['required', 'isString', 'maxStringLength:50', 'minStringLength:2']}
 
                                 />
                             </Grid>
-                            <Grid item xs={12}>
+                            <Grid item xs={12} md={6}>
                                 <TextValidator
                                     required
-                                    id="address"
-                                    name="address"
-                                    label="Address"
+                                    label="Last Name"
                                     fullWidth
-                                    autoComplete="shipping address-line1"
-                                    variant="standard"
+                                    variant="filled"
+                                    size="small"
+                                    autoComplete="given-name"
                                     validators={['required', 'isString', 'maxStringLength:50', 'minStringLength:2']}
 
                                 />
                             </Grid>
-                            <Grid item xs={12}>
+                            <Grid item xs={12} md={6}>
                                 <TextValidator
-                                    id="contact"
-                                    name="contact"
-                                    label="Contact"
-                                    fullWidth
-                                    required
-                                    variant="standard"
-                                    validators={['required', 'isNumber', 'matchRegexp:^0?(7)[0|1|2|4|5|6|7|8]-?[0-9]{7}$']}
-                                    errorMessages={['this field is required', 'Invalid Phone Number']}
-
-                                />
-                            </Grid>
-                            <Grid item xs={12}>
-                                <TextValidator
-                                    id="email"
-                                    name="email"
                                     label="Email"
+                                    fullWidth
+                                    variant="filled"
+                                    size="small"
                                     required
                                     type="email"
-                                    fullWidth
-                                    variant="standard"
                                     validators={['required', 'isEmail']}
                                     errorMessages={['this field is required', 'Invalid Email']}
+                                />
+                            </Grid>
+                            <Grid item xs={12} md={6}>
+                                <TextValidator
+                                    label="Username"
+                                    required
+                                    variant="filled"
+                                    size="small"
+                                    type="email"
+                                    fullWidth
 
                                 />
                             </Grid>
-                            <Grid item xs={12} sm={6}>
+                            <Grid item xs={12} md={6}>
                                 <TextValidator
                                     required
                                     id="password"
+                                    variant="filled"
+                                    size="small"
                                     name="password"
                                     label="Password"
                                     fullWidth
                                     type="password"
                                     autoComplete="shipping postal-code"
-                                    variant="standard"
                                     /*       value={this.state.formData.password}*/
                                     validators={['required', 'isString', 'minStringLength:7']}
                                     errorMessages={['this field is required', 'Password too short']}
@@ -92,19 +99,71 @@ class Register extends Component {
                                         }}*/
                                 />
                             </Grid>
-                            <Grid item xs={12} sm={6}>
+                            <Grid item xs={12} md={6}>
                                 <TextValidator
                                     required
-                                    id="confirm"
-                                    name="confirm"
-                                    label="Confirm Password"
+                                    label="City"
                                     fullWidth
-                                    type="password"
-                                    autoComplete="shipping country"
-                                    variant="standard"
                                     validators={['required', 'isString', 'minStringLength:7']}
-                                    errorMessages={['this field is required', 'password Not match']}
+                                    variant="filled"
+                                    size="small"
+                                />
+                            </Grid>
+                            <Grid item xs={12} md={6}>
+                                <TextValidator
+                                    label="Street"
+                                    required
+                                    fullWidth
+                                    variant="filled"
+                                    size="small"
+                                />
+                            </Grid>
+                            <Grid item xs={12} md={6}>
+                                <TextValidator
+                                    label="Street No"
+                                    required
+                                    fullWidth
+                                    variant="filled"
+                                    size="small"
+                                />
+                            </Grid>
+                            <Grid item xs={12} md={6}>
+                                <TextValidator
+                                    label="Zip Code"
+                                    required
+                                    fullWidth
+                                    variant="filled"
+                                    size="small"
+                                />
+                            </Grid>
+                            <Grid item xs={12} md={6}>
+                                <TextValidator
+                                    label="Lat Value"
+                                    required
+                                    fullWidth
+                                    variant="filled"
+                                    size="small"
+                                />
+                            </Grid>
+                            <Grid item xs={12} md={6}>
+                                <TextValidator
+                                    label="Long Value"
+                                    required
+                                    fullWidth
+                                    variant="filled"
+                                    size="small"
+                                />
+                            </Grid>
 
+                            <Grid item xs={12} md={6}>
+                                <TextValidator
+                                    label="Mobile No"
+                                    required
+                                    variant="filled"
+                                    size="small"
+                                    fullWidth
+                                    validators={['required', 'isNumber', 'matchRegexp:^0?(7)[0|1|2|4|5|6|7|8]-?[0-9]{7}$']}
+                                    errorMessages={['this field is required', 'Invalid Phone Number']}
                                 />
                             </Grid>
 
@@ -113,7 +172,7 @@ class Register extends Component {
                     </ValidatorForm>
                 </Grid>
                 </div>
-                {/*      <SnackBar
+                      <SnackBar
                     open={this.state.alert}
                     onClose={() => {
                         this.setState({alert: false})
@@ -122,7 +181,7 @@ class Register extends Component {
                     autoHideDuration={3000}
                     severity={this.state.severity}
                     variant={"filled"}
-                />*/}
+                />
             </>
         );
     }
