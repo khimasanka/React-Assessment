@@ -16,7 +16,7 @@ import { ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
 import LoginService from "../../services/LoginService";
 import localStorageService from "../../LocalStorageService"
 
-const theme = createTheme();
+
 class Login extends Component {
     constructor(props) {
         super(props);
@@ -27,6 +27,8 @@ class Login extends Component {
             }
         }
     }
+
+
 
     handleSubmit = async () => {
         let data = this.state.formData
@@ -41,7 +43,7 @@ class Login extends Component {
     }
 
     render() {
-
+        const theme = createTheme();
         return (
             <ThemeProvider theme={theme}>
                 <Container component="main" maxWidth="xs" style={{width:600}}>
