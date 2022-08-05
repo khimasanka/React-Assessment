@@ -13,9 +13,10 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import {Component} from "react";
 import { ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
+import LoginService from "../../services/LoginService";
+import localStorageService from "../../LocalStorageService"
 
 const theme = createTheme();
-
 class Login extends Component {
     constructor(props) {
         super(props);
@@ -27,11 +28,19 @@ class Login extends Component {
         }
     }
 
+    handleSubmit = async () => {
+        let data = this.state.formData
+        let res = await LoginService.loginUser(data);
+        if (res.status === 200) {
+            const accessToken = res.data.token
+            localStorageService.setItem('accessToken',accessToken)
+        } else {
+            console.log('wrong');
+        }
+
+    }
 
     render() {
-        const handleSubmit = async () => {
-
-        };
 
         return (
             <ThemeProvider theme={theme}>
@@ -52,7 +61,7 @@ class Login extends Component {
                         <Typography component="h1" variant="h5">
                             Sign in
                         </Typography>
-                        <ValidatorForm style={{width:350,marginTop:3}}  ref="form" onSubmit={handleSubmit} Validate >
+                        <ValidatorForm style={{width:350,marginTop:3}}  ref="form" onSubmit={this.handleSubmit} >
                             <TextValidator
                                 margin="normal"
                                 required
@@ -61,7 +70,6 @@ class Login extends Component {
                                 label="Username"
                                 name="username"
                                 value={this.state.formData.username}
-                                autoComplete="username"
                                 autoFocus
                                 onChange={(e) => {
                                     let data = this.state.formData
@@ -83,7 +91,6 @@ class Login extends Component {
                                     data.password = e.target.value
                                     this.setState({data})
                                 }}
-                                autoComplete="current-password"
                             />
                             <FormControlLabel
                                 control={<Checkbox color="primary"/>}
@@ -104,7 +111,7 @@ class Login extends Component {
                             }}>
                                 <Grid item xs>
                                     <Link href="" variant="body2">
-                                        Forgot password?
+                                        Create New Account
                                     </Link>
                                 </Grid>
                             </Grid>

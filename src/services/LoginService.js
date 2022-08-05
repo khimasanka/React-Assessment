@@ -6,6 +6,9 @@ class LoginService {
             axios({
                 method: "post",
                 url: "auth/login",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
                 data: data
             })
                 .then((res) => {
