@@ -12,7 +12,8 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import {Component, useState} from "react";
+import {Component} from "react";
+import { ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
 
 const theme = createTheme();
 
@@ -33,7 +34,7 @@ class Login extends Component {
 
         return (
             <ThemeProvider theme={theme}>
-                <Container component="main" maxWidth="xs">
+                <Container component="main" maxWidth="xs" style={{width:600}}>
                     <CssBaseline/>
                     <Box
                         sx={{
@@ -41,6 +42,7 @@ class Login extends Component {
                             display: 'flex',
                             flexDirection: 'column',
                             alignItems: 'center',
+
                         }}
                     >
                         <Avatar sx={{m: 1, bgcolor: 'secondary.main'}}>
@@ -49,8 +51,8 @@ class Login extends Component {
                         <Typography component="h1" variant="h5">
                             Sign in
                         </Typography>
-                        <Box component="form" onSubmit={handleSubmit} Validate sx={{mt: 1}}>
-                            <TextField
+                        <ValidatorForm style={{width:350,marginTop:3}}  ref="form" onSubmit={handleSubmit} Validate >
+                            <TextValidator
                                 margin="normal"
                                 required
                                 fullWidth
@@ -67,7 +69,7 @@ class Login extends Component {
                                     console.log(this.state.username)
                                 }}
                             />
-                            <TextField
+                            <TextValidator
                                 margin="normal"
                                 required
                                 fullWidth
@@ -87,8 +89,7 @@ class Login extends Component {
                                 control={<Checkbox color="primary"/>}
                                 label="Remember me"
                             />
-                            <Button href={"/adminDash"}
-                                    type="submit"
+                            <Button type="submit"
                                     fullWidth
                                     variant="contained"
                                     sx={{mt: 3, mb: 2}}
@@ -107,7 +108,7 @@ class Login extends Component {
                                     </Link>
                                 </Grid>
                             </Grid>
-                        </Box>
+                        </ValidatorForm>
                     </Box>
 
                 </Container>
