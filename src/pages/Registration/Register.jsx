@@ -7,7 +7,7 @@ import SnackBar from "../../components/common/snackBar/SnackBar";
 import {styleSheet} from "./styles"
 import {withStyles} from "@mui/styles";
 import Container from "@mui/material/Container";
-import {CssBaseline, Divider, Paper} from "@mui/material";
+import {CssBaseline, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from "@mui/material";
 import {ThemeProvider} from "@emotion/react";
 import {createTheme} from "@mui/material/styles";
 import Box from "@mui/material/Box";
@@ -37,6 +37,7 @@ class Register extends Component {
                 },
                 phone: ''
             },
+            data:[],
             alert: false,
             message: '',
             btnText: 'Save',
@@ -63,7 +64,7 @@ class Register extends Component {
         }
     }
 
-    clearFields=()=>{
+    clearFields = () => {
         this.setState({
             formData: {
                 email: '',
@@ -88,6 +89,32 @@ class Register extends Component {
         });
     }
 
+    getAllUsers = async ()=>{
+        let res = await UserService.getAllUsers();
+        console.log(res)
+        if (res.status === 200) {
+            this.setState({
+                data: res.data.data
+            });
+        }
+    }
+
+    componentDidMount = async ()=> {
+        await this.getAllUsers();
+    }
+
+    createData(name, calories, fat, carbs, protein) {
+        return {name, calories, fat, carbs, protein};
+    }
+
+    rows = [
+        this.createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
+        this.createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
+        this.createData('Eclair', 262, 16.0, 24, 6.0),
+        this.createData('Cupcake', 305, 3.7, 67, 4.3),
+        this.createData('Gingerbread', 356, 16.0, 49, 3.9),
+    ];
+
     render() {
         const theme = createTheme();
         const {classes} = this.props;
@@ -102,7 +129,7 @@ class Register extends Component {
                                 User Registration
                             </h1>
 
-                            <div className={classes.container} style={{background:'rgba(211,229,239,0.11)'}}>
+                            <div className={classes.container} style={{background: 'rgba(211,229,239,0.11)'}}>
                                 <Grid container sm={8} sx={12} lg={8} md={8} mt={4}>
                                     <ValidatorForm ref="form" onSubmit={this.submitUser}
                                                    onError={() => {
@@ -319,7 +346,8 @@ class Register extends Component {
 
                                         </Grid>
                                         <Box sx={{display: 'flex', justifyContent: 'flex-end'}}>
-                                            <Buttons onClick={this.clearFields} sx={{mt: 3, ml: 1, fontSize: 15, fontWeight: "bold"}}
+                                            <Buttons onClick={this.clearFields}
+                                                     sx={{mt: 3, ml: 1, fontSize: 15, fontWeight: "bold"}}
                                                      color="secondary">
                                                 Clear
                                             </Buttons>
@@ -333,6 +361,40 @@ class Register extends Component {
                         </Paper>
                     </Container>
                 </ThemeProvider>
+
+                <div className={classes.container}>
+                    <Grid container md={10} sm={11}>
+                        <TableContainer component={Paper}>
+                            <Table sx={{minWidth: 650}} size="small" aria-label="a dense table">
+                                <TableHead>
+                                    <TableRow>
+                                        <TableCell>Dessert (100g serving)</TableCell>
+                                        <TableCell align="right">Calories</TableCell>
+                                        <TableCell align="right">Fat&nbsp;(g)</TableCell>
+                                        <TableCell align="right">Carbs&nbsp;(g)</TableCell>
+                                        <TableCell align="right">Protein&nbsp;(g)</TableCell>
+                                    </TableRow>
+                                </TableHead>
+                                <TableBody>
+                                    {this.rows.map((row) => (
+                                        <TableRow
+                                            key={row.name}
+                                            sx={{'&:last-child td, &:last-child th': {border: 0}}}
+                                        >
+                                            <TableCell component="th" scope="row">
+                                                {row.name}
+                                            </TableCell>
+                                            <TableCell align="right">{row.calories}</TableCell>
+                                            <TableCell align="right">{row.fat}</TableCell>
+                                            <TableCell align="right">{row.carbs}</TableCell>
+                                            <TableCell align="right">{row.protein}</TableCell>
+                                        </TableRow>
+                                    ))}
+                                </TableBody>
+                            </Table>
+                        </TableContainer>
+                    </Grid>
+                </div>
                 <SnackBar
                     open={this.state.alert}
                     onClose={() => {
