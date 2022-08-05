@@ -93,7 +93,7 @@ class Register extends Component {
                                                     variant="filled"
                                                     size="small"
                                                     autoComplete="given-name"
-                                                    validators={['required', 'isString', 'maxStringLength:50', 'minStringLength:2']}
+                                                    validators={['required', 'isString', 'maxStringLength:20', 'minStringLength:2']}
                                                     value={this.state.formData.name.lastname}
                                                     onChange={(e)=>{
                                                         let data = this.state.formData.name
@@ -127,6 +127,7 @@ class Register extends Component {
                                                     variant="filled"
                                                     size="small"
                                                     fullWidth
+                                                    validators={['required', 'isString', 'maxStringLength:20', 'minStringLength:5']}
                                                     value={this.state.formData.username}
                                                     onChange={(e)=>{
                                                         let data = this.state.formData
@@ -145,8 +146,7 @@ class Register extends Component {
                                                     label="Password"
                                                     fullWidth
                                                     type="password"
-                                                    autoComplete="shipping postal-code"
-                                                    validators={['required', 'isString', 'minStringLength:7']}
+                                                    validators={['required', 'isString', 'minStringLength:5']}
                                                     errorMessages={['this field is required', 'Password too short']}
                                                     value={this.state.formData.password}
                                                     onChange={(e)=>{
@@ -161,7 +161,7 @@ class Register extends Component {
                                                     required
                                                     label="City"
                                                     fullWidth
-                                                    validators={['required', 'isString', 'minStringLength:7']}
+                                                    validators={['required', 'isString', 'minStringLength:4','maxStringLength:20']}
                                                     variant="filled"
                                                     size="small"
                                                     value={this.state.formData.address.city}
@@ -179,6 +179,7 @@ class Register extends Component {
                                                     fullWidth
                                                     variant="filled"
                                                     size="small"
+                                                    validators={['required', 'isString', 'maxStringLength:20', 'minStringLength:4']}
                                                     value={this.state.formData.address.street}
                                                     onChange={(e)=>{
                                                         let data = this.state.formData.address
@@ -193,6 +194,7 @@ class Register extends Component {
                                                     required
                                                     fullWidth
                                                     variant="filled"
+                                                    validators={['required', 'isString', 'maxStringLength:5', 'minStringLength:1']}
                                                     size="small"
                                                     value={this.state.formData.address.number}
                                                     onChange={(e)=>{
@@ -208,6 +210,7 @@ class Register extends Component {
                                                     required
                                                     fullWidth
                                                     variant="filled"
+                                                    validators={['required', 'isNumber','maxNumber:99999', 'matchRegexp:^[0-9]{5}$']}
                                                     size="small"
                                                     value={this.state.formData.address.zipcode}
                                                     onChange={(e)=>{
@@ -225,6 +228,7 @@ class Register extends Component {
                                                     variant="filled"
                                                     size="small"
                                                     value={this.state.formData.address.geolocation.lat}
+                                                    validators={['required', 'isFloat']}
                                                     onChange={(e)=>{
                                                         let data = this.state.formData.address.geolocation
                                                         data.lat = e.target.value
@@ -240,6 +244,7 @@ class Register extends Component {
                                                     variant="filled"
                                                     size="small"
                                                     value={this.state.formData.address.geolocation.long}
+                                                    validators={['required', 'isFloat']}
                                                     onChange={(e)=>{
                                                         let data = this.state.formData.address.geolocation
                                                         data.long = e.target.value
