@@ -12,7 +12,6 @@ import {
     Tooltip
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
-import EditIcon from "@mui/icons-material/Edit";
 import UserService from "../../services/UserService";
 import Grid from "@mui/material/Grid";
 import {withStyles} from "@mui/styles";
@@ -98,13 +97,6 @@ class UserTable extends Component {
                                                             this.openDialog()
                                                         }}>
                                                             <DeleteIcon/>
-                                                        </IconButton>
-                                                    </Tooltip>
-                                                    <Tooltip title="Edit">
-                                                        <IconButton onClick={() => {
-                                                            this.updateUser(row);
-                                                        }}>
-                                                            <EditIcon color={"primary"}/>
                                                         </IconButton>
                                                     </Tooltip>
                                                 </TableCell>

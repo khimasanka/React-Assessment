@@ -112,7 +112,7 @@ class Login extends Component {
                                 flexWrap: 'wrap'
                             }}>
                                 <Grid item xs>
-                                    <Link href="" variant="body2">
+                                    <Link href="/register" variant="body2">
                                         Create New Account
                                     </Link>
                                 </Grid>

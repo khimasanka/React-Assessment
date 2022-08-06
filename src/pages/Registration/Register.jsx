@@ -7,8 +7,8 @@ import {styleSheet} from "./styles"
 import {withStyles} from "@mui/styles";
 import Container from "@mui/material/Container";
 import {
-    CssBaseline, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle,
-    Paper,
+    CssBaseline, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, IconButton,
+    Paper, Tooltip,
 } from "@mui/material";
 import {ThemeProvider} from "@emotion/react";
 import {createTheme} from "@mui/material/styles";
@@ -17,7 +17,7 @@ import UserService from "../../services/UserService";
 import Button from "@mui/material/Button";
 import UserTable from "../../components/UserTable/UserTable";
 import SearchIcon from '@mui/icons-material/Search';
-
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 class Register extends Component {
     constructor(props) {
@@ -191,6 +191,12 @@ class Register extends Component {
         const {classes} = this.props;
         return (
             <>
+                <Tooltip title="Back">
+                    <IconButton href="/">
+                        <ArrowBackIcon />
+                    </IconButton>
+                </Tooltip>
+
                 <ThemeProvider theme={theme}>
                     <CssBaseline/>
                     <Container component="main" maxWidth="lg" sx={{mb: 4}}>
