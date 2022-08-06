@@ -12,6 +12,9 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import LeaderboardIcon from '@mui/icons-material/Leaderboard';
+import LocalStorageService from "../../LocalStorageService";
+import jwt_decode from "jwt-decode";
+import {useEffect} from "react";
 
 const pages = ['Products', 'Cart'];
 const settings = ['Profile','Logout'];
@@ -20,6 +23,18 @@ const Appbar = () => {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
     const [name, setName] = React.useState('');
+
+    async function setToken(){
+        const accessToken =await LocalStorageService.getItem("accessToken");
+        let decode = jwt_decode(accessToken)
+        setName(decode.user)
+
+    }
+
+
+    useEffect(()=>{
+        setToken();
+    })
 
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget);
