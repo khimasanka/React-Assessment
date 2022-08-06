@@ -53,20 +53,39 @@ class Register extends Component {
 
     submitUser = async () => {
         let data = this.state.formData
-        let res = await UserService.userRegister(data);
-        if (res.status === 200) {
-            this.clearFields();
-            this.setState({
-                alert: true,
-                message: 'Register Success',
-                severity: 'success'
-            });
+        if (this.state.btnText === 'Save') {
+            let res = await UserService.userRegister(data);
+            if (res.status === 200) {
+                this.clearFields();
+                this.setState({
+                    alert: true,
+                    message: 'Register Success',
+                    severity: 'success'
+                });
+            } else {
+                this.setState({
+                    alert: true,
+                    message: 'Register Failed..! Try again',
+                    severity: 'warning'
+                });
+            }
         } else {
-            this.setState({
-                alert: true,
-                message: 'Register Failed..! Try again',
-                severity: 'warning'
-            });
+            let res = await UserService.updateUser(data, this.state.searchId);
+            if (res.status === 200) {
+                this.clearFields();
+                this.setState({
+                    alert: true,
+                    message: 'Update Success',
+                    severity: 'success',
+                    btnText:'Save'
+                });
+            } else {
+                this.setState({
+                    alert: true,
+                    message: 'Update Failed..! Try again',
+                    severity: 'warning'
+                });
+            }
         }
     }
 
@@ -132,14 +151,15 @@ class Register extends Component {
         } else {
             let res = await UserService.searchUser(this.state.searchId);
             if (res.status === 200) {
-                if (res.data === null){
+                if (res.data === null) {
                     this.setState({
                         alert: true,
                         message: 'User Id is Invalid',
                         severity: 'warning'
                     });
-                }else {
+                } else {
                     this.setState({
+                        btnText: 'Update',
                         formData: {
                             email: res.data.email,
                             username: res.data.username,
@@ -432,7 +452,7 @@ class Register extends Component {
                                                 Clear
                                             </Buttons>
                                             <button className={'saveBtn'} type="submit" style={{mt: 3, ml: 1}}>
-                                                Save
+                                                {this.state.btnText}
                                             </button>
                                         </Box>
                                     </ValidatorForm>

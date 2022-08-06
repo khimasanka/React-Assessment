@@ -53,6 +53,25 @@ class UserService{
         });
         return await promise;
     }
+
+    updateUser= async (data,id)=>{
+        console.log(data)
+        const promise = new Promise((resolve) => {
+            axios({
+                method:"put",
+                url:`users/${id}`,
+                data:data,
+                headers:{"Content-Type": "application/json"}
+            })
+                .then((res) => {
+                    return resolve(res);
+                })
+                .catch((err) => {
+                    return resolve(err)
+                });
+        });
+        return await promise;
+    }
 }
 
 export default new UserService();

@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a7f1253e-46b2-4f52-831f-61141391170f" name="Changes" comment="separate user table">
+    <list default="true" id="a7f1253e-46b2-4f52-831f-61141391170f" name="Changes" comment="set user search data to text fields and set alerts">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/Registration/Register.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Registration/Register.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/services/UserService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/UserService.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,8 +61,16 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1659755600168</updated>
-      <workItem from="1659755604380" duration="16225000" />
+      <workItem from="1659755604380" duration="17262000" />
     </task>
+    <task id="LOCAL-00001" summary="set user search data to text fields and set alerts">
+      <created>1659772723033</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1659772723033</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -80,6 +89,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="separate user table" />
-    <option name="LAST_COMMIT_MESSAGE" value="separate user table" />
+    <MESSAGE value="set user search data to text fields and set alerts" />
+    <option name="LAST_COMMIT_MESSAGE" value="set user search data to text fields and set alerts" />
   </component>
 </project>
