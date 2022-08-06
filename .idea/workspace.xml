@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a7f1253e-46b2-4f52-831f-61141391170f" name="Changes" comment="">
+    <list default="true" id="a7f1253e-46b2-4f52-831f-61141391170f" name="Changes" comment="separate user table">
+      <change afterPath="$PROJECT_DIR$/src/components/UserTable/UserTable.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/Registration/Register.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Registration/Register.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/services/UserService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/UserService.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,7 +62,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1659755600168</updated>
-      <workItem from="1659755604380" duration="9055000" />
+      <workItem from="1659755604380" duration="15563000" />
     </task>
     <servers />
   </component>
@@ -77,5 +79,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="separate user table" />
+    <option name="LAST_COMMIT_MESSAGE" value="separate user table" />
   </component>
 </project>

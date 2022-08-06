@@ -40,6 +40,19 @@ class UserService{
         });
         return await promise;
     }
+
+    searchUser =async (id)=>{
+        const promise = new Promise((resolve,reject) => {
+            axios.get(`users/${id}`)
+                .then((res) => {
+                    return resolve(res);
+                })
+                .catch((err) => {
+                    return resolve(err);
+                });
+        });
+        return await promise;
+    }
 }
 
 export default new UserService();

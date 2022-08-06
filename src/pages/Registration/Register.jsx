@@ -1,6 +1,4 @@
 import React, {Component} from 'react';
-import DeleteIcon from "@mui/icons-material/Delete";
-import EditIcon from '@mui/icons-material/Edit';
 import Grid from "@mui/material/Grid";
 import {ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
 import Buttons from "@mui/material/Button";
@@ -10,20 +8,16 @@ import {withStyles} from "@mui/styles";
 import Container from "@mui/material/Container";
 import {
     CssBaseline, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle,
-    IconButton,
     Paper,
-    Table,
-    TableBody,
-    TableCell,
-    TableContainer,
-    TableHead,
-    TableRow, Tooltip
 } from "@mui/material";
 import {ThemeProvider} from "@emotion/react";
 import {createTheme} from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import UserService from "../../services/UserService";
 import Button from "@mui/material/Button";
+import UserTable from "../../components/UserTable/UserTable";
+import SearchIcon from '@mui/icons-material/Search';
+
 
 class Register extends Component {
     constructor(props) {
@@ -53,6 +47,7 @@ class Register extends Component {
             alert: false,
             message: '',
             btnText: 'Save',
+            searchId: ''
         }
     }
 
@@ -97,47 +92,14 @@ class Register extends Component {
                 },
                 phone: '',
                 open: false,
-                deleteId:''
+                deleteId: ''
             }
         });
     }
 
-    getAllUsers = async () => {
-        let res = await UserService.getAllUsers();
-        if (res.status === 200) {
-            this.setState({
-                data: res.data
-            });
-        }
-    }
-
-    componentDidMount = async () => {
-        await this.getAllUsers();
-        console.log(this.state.data)
-    }
-
-    openDialog = () => {
+    updateUser = (data) => {
         this.setState({
-            open: true
-        });
-    };
-
-    deleteById = async () => {
-        let res = await UserService.removeUser(this.state.deleteId);
-        console.log(res)
-        if (res.status === 200) {
-            await this.getAllUsers();
-            this.setState({
-                open: false
-            });
-        } else {
-            console.log('can not')
-        }
-    }
-
-    updateUser = (data)=>{
-        this.setState({
-            formData:{
+            formData: {
                 email: data.email,
                 username: data.username,
                 password: data.password,
@@ -160,6 +122,34 @@ class Register extends Component {
         })
     }
 
+    searchUser = async () => {
+        let res = await UserService.searchUser(this.state.searchId);
+        if (res.status === 200) {
+            console.log(res.data);
+            this.setState({
+                formData: {
+                    email: res.data.email,
+                    username: res.data.username,
+                    password: res.data.password,
+                    name: {
+                        firstname: res.data.name.firstname,
+                        lastname: res.data.name.lastname
+                    },
+                    address: {
+                        city:res.data.address.city,
+                        street: res.data.address.city,
+                        number: res.data.address.number,
+                        zipcode: res.data.address.zipcode,
+                        geolocation: {
+                            lat: res.data.address.geolocation.lat,
+                            long: res.data.address.geolocation.long
+                        }
+                    },
+                    phone: res.data.phone
+                }
+            })
+        }
+    }
 
     render() {
         const theme = createTheme();
@@ -170,9 +160,38 @@ class Register extends Component {
                     <CssBaseline/>
                     <Container component="main" maxWidth="lg" sx={{mb: 4}}>
                         <Paper variant="outlined" sx={{my: {xs: 3, md: 6}, p: {xs: 2, md: 3}}}>
-                            <h1 className={"regHeader"} align="center">
-                                User Registration
-                            </h1>
+
+                            <div style={{display: 'flex', justifyContent: 'space-evenly', paddingBottom: '20px'}}>
+                                <h1 className={"regHeader"} align="center">
+                                    User Registration
+                                </h1>
+                                <ValidatorForm ref="form" style={{width: '20%'}}>
+                                    <TextValidator
+                                        variant="standard"
+                                        color="success"
+                                        focused
+                                        size="small"
+                                        label="Search Drivers"
+                                        value={this.state.formData.searchId}
+                                        InputProps={{
+                                            startAdornment: (
+                                                <Button type="submit" position="end"
+                                                        onClick={async () => {
+                                                            await this.searchUser();
+                                                        }}>
+                                                    <SearchIcon/>
+                                                </Button>
+                                            ),
+                                        }}
+                                        onChange={(e) => {
+                                            let data = this.state
+                                            data.searchId = e.target.value
+                                            this.setState({data})
+                                        }}
+
+                                    />
+                                </ValidatorForm>
+                            </div>
 
                             <div className={classes.container} style={{background: 'rgba(211,229,239,0.11)'}}>
                                 <Grid container sm={8} sx={12} lg={8} md={8} mt={4}>
@@ -312,7 +331,7 @@ class Register extends Component {
                                                     required
                                                     fullWidth
                                                     variant="filled"
-                                                    validators={['required', 'isString', 'maxStringLength:5', 'minStringLength:1']}
+                                                    validators={['required', 'isNumber', 'minNumber:1']}
                                                     size="small"
                                                     value={this.state.formData.address.number}
                                                     onChange={(e) => {
@@ -407,69 +426,8 @@ class Register extends Component {
                     </Container>
                 </ThemeProvider>
 
-                <div className={classes.container}>
-                    <Grid container md={10} sm={11}>
-                        <TableContainer component={Paper} sx={{maxHeight: 440}}>
-                            <Table stickyHeader sx={{minWidth: 650}} size="small" aria-label="User Details">
-                                <TableHead>
-                                    <TableRow>
-                                        <TableCell align="center">Actions</TableCell>
-                                        <TableCell align="center">Id</TableCell>
-                                        <TableCell align="center">Full name</TableCell>
-                                        <TableCell align="center">City</TableCell>
-                                        <TableCell align="center">street</TableCell>
-                                        <TableCell align="center">number</TableCell>
-                                        <TableCell align="center">Zip code</TableCell>
-                                        <TableCell align="center">lat</TableCell>
-                                        <TableCell align="center">Long</TableCell>
-                                        <TableCell align="center">Email</TableCell>
-                                        <TableCell align="center">Username</TableCell>
-                                        <TableCell align="center">Password</TableCell>
-                                        <TableCell align="center">Phone</TableCell>
-                                    </TableRow>
-                                </TableHead>
-                                <TableBody>
-                                    {
-                                        this.state.data.map((row) => (
-                                            <TableRow
-                                            >
-                                                <TableCell>
-                                                    <Tooltip title="Delete">
-                                                        <IconButton onClick={() => {
-                                                            this.setState({deleteId: row.id})
-                                                            this.openDialog()
-                                                        }}>
-                                                            <DeleteIcon/>
-                                                        </IconButton>
-                                                    </Tooltip>
-                                                    <Tooltip title="Edit">
-                                                        <IconButton onClick={() => {
-                                                            this.updateUser(row);
-                                                        }}>
-                                                            <EditIcon color={"primary"}/>
-                                                        </IconButton>
-                                                    </Tooltip>
-                                                </TableCell>
-                                                <TableCell>{row.id}</TableCell>
-                                                <TableCell>{`${row.name.firstname}` + ' ' + `${row.name.lastname}`}</TableCell>
-                                                <TableCell>{row.address.city}</TableCell>
-                                                <TableCell>{row.address.street}</TableCell>
-                                                <TableCell>{row.address.number}</TableCell>
-                                                <TableCell>{row.address.zipcode}</TableCell>
-                                                <TableCell>{row.address.geolocation.lat}</TableCell>
-                                                <TableCell>{row.address.geolocation.long}</TableCell>
-                                                <TableCell>{row.email}</TableCell>
-                                                <TableCell>{row.username}</TableCell>
-                                                <TableCell>{row.password}</TableCell>
-                                                <TableCell>{row.phone}</TableCell>
-                                            </TableRow>
-                                        ))
-                                    }
-                                </TableBody>
-                            </Table>
-                        </TableContainer>
-                    </Grid>
-                </div>
+                <UserTable/>
+
                 <SnackBar
                     open={this.state.alert}
                     onClose={() => {
