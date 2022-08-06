@@ -13,5 +13,19 @@ class ProductService{
         }));
         return await promise;
     };
+
+    saveProduct = async (data) => {
+        console.log(data)
+        const promise = new Promise((resolve => {
+            axios.post('products',data)
+                .then((res) => {
+                    return resolve(res);
+                })
+                .catch((err) => {
+                    return resolve(err);
+                });
+        }));
+        return await promise;
+    };
 }
 export default new ProductService();

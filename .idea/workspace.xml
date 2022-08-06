@@ -4,6 +4,7 @@
     <list default="true" id="a7f1253e-46b2-4f52-831f-61141391170f" name="Changes" comment="validate product fields">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Products/Products.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Products/Products.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/services/ProductService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/ProductService.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -66,7 +67,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1659755600168</updated>
-      <workItem from="1659755604380" duration="37267000" />
+      <workItem from="1659755604380" duration="38725000" />
     </task>
     <task id="LOCAL-00001" summary="set user search data to text fields and set alerts">
       <created>1659772723033</created>

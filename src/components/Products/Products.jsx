@@ -9,6 +9,7 @@ import {ThemeProvider} from "@emotion/react";
 import {createTheme} from "@mui/material/styles";
 import ProductService from "../../services/ProductService";
 import Avatar from "@mui/material/Avatar";
+import SnackBar from "../common/snackBar/SnackBar";
 
 class Products extends Component {
     constructor(props) {
@@ -23,7 +24,10 @@ class Products extends Component {
             },
             categories: [],
             btnText:'Save',
-            image:null
+            image:null,
+            alert: false,
+            message: '',
+            severity: 'success'
         }
     }
 
@@ -36,9 +40,27 @@ class Products extends Component {
         }
     }
 
+    saveProduct =async ()=>{
+        this.state.formData.image = this.state.image
+        let data = this.state.formData
+        let res = await ProductService.saveProduct(data);
+        if (res.status === 200){
+            this.setState({
+                alert: true,
+                message: 'Save Success',
+                severity: 'success'
+            })
+        }else{
+            this.setState({
+                alert: true,
+                message: 'Something Went Wrong',
+                severity: 'error'
+            });
+        }
+    }
+
     componentDidMount = async () => {
         await this.getProduct()
-        console.log(this.state.image)
     }
 
     render() {
@@ -63,7 +85,7 @@ class Products extends Component {
                                 justifyContent: 'center'
                             }}>
                                 <Grid container sm={8} sx={12} lg={8} md={8} mt={4}>
-                                    <ValidatorForm ref="form">
+                                    <ValidatorForm ref="form" onSubmit={this.saveProduct}>
                                         <Grid container spacing={3}>
                                             <Grid item xs={12} md={6}>
                                                 <TextValidator
@@ -154,7 +176,7 @@ class Products extends Component {
 
                                             <Grid item xs={4} md={3}>
                                                 <Avatar
-                                                    alt="Remy Sharp"
+                                                    alt="Image"
                                                     src={this.state.image}
                                                     sx={{ width: 100, height: 100 }}
                                                 />
@@ -176,6 +198,16 @@ class Products extends Component {
                         </Paper>
                     </Container>
                 </ThemeProvider>
+                <SnackBar
+                    open={this.state.alert}
+                    onClose={() => {
+                        this.setState({alert: false})
+                    }}
+                    message={this.state.message}
+                    autoHideDuration={3000}
+                    severity={this.state.severity}
+                    variant={"filled"}
+                />
             </>
         );
     }
