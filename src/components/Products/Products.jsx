@@ -7,6 +7,7 @@ import Box from "@mui/material/Box";
 import Buttons from "@mui/material/Button";
 import {ThemeProvider} from "@emotion/react";
 import {createTheme} from "@mui/material/styles";
+import ProductService from "../../services/ProductService";
 
 class Products extends Component {
     constructor(props) {
@@ -24,18 +25,18 @@ class Products extends Component {
         }
     }
 
-    names = [
-        'Oliver Hansen',
-        'Van Henry',
-        'April Tucker',
-        'Ralph Hubbard',
-        'Omar Alexander',
-        'Carlos Abbott',
-        'Miriam Wagner',
-        'Bradley Wilkerson',
-        'Virginia Andrews',
-        'Kelly Snyder',
-    ];
+    getProduct =async ()=>{
+        let res = await ProductService.getAllCategories();
+        if (res.status === 200){
+            this.setState({
+                categories:res.data
+            })
+        }
+    }
+
+    componentDidMount = async () => {
+        await this.getProduct()
+    }
 
     render() {
         const theme = createTheme();
@@ -87,11 +88,10 @@ class Products extends Component {
                                                     disablePortal
                                                     id="combo-box-demo"
                                                     fullWidth
-                                                    options={this.names}
+                                                    options={this.state.categories}
                                                     sx={{width: 300}}
                                                     renderInput={(params) => <TextValidator
                                                         required
-
                                                         {...params} label="Category"/>}
                                                 />
                                             </Grid>
