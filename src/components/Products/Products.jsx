@@ -70,6 +70,12 @@ class Products extends Component {
                                                     variant="filled"
                                                     size="small"
                                                     validators={['required', 'isString', 'maxStringLength:25', 'minStringLength:2']}
+                                                    value={this.state.formData.title}
+                                                    onChange={(e) => {
+                                                        let data = this.state.formData
+                                                        data.title = e.target.value
+                                                        this.setState({data})
+                                                    }}
                                                 />
                                             </Grid>
                                             <Grid item xs={12} md={6}>
@@ -79,7 +85,14 @@ class Products extends Component {
                                                     fullWidth
                                                     variant="filled"
                                                     size="small"
-                                                    validators={['required','isNumber']}
+                                                    value={this.state.formData.price}
+                                                    validators={['required', 'isFloat', 'matchRegexp:^([1-9][0-9]{,2}(,[0-9]{3})*|[0-9]+)(\\.[0-9]{2,2})?$']}
+                                                    onChange={(e) => {
+                                                        let data = this.state.formData
+                                                        data.price = e.target.value
+                                                        this.setState({data})
+                                                    }}
+
                                                 />
                                             </Grid>
                                             <Grid item xs={12} md={6}>
@@ -89,9 +102,14 @@ class Products extends Component {
                                                     id="combo-box-demo"
                                                     fullWidth
                                                     options={this.state.categories}
-                                                    sx={{width: 300}}
                                                     renderInput={(params) => <TextValidator
                                                         required
+                                                        value={this.state.formData.category}
+                                                        onChange={(e) => {
+                                                            let data = this.state.formData
+                                                            data.category = e.target.value
+                                                            this.setState({data})
+                                                        }}
                                                         {...params} label="Category"/>}
                                                 />
                                             </Grid>
@@ -104,6 +122,12 @@ class Products extends Component {
                                                     multiline
                                                     rows={4}
                                                     validators={['required', 'isString', 'minStringLength:5']}
+                                                    value={this.state.formData.description}
+                                                    onChange={(e) => {
+                                                        let data = this.state.formData
+                                                        data.description = e.target.value
+                                                        this.setState({data})
+                                                    }}
                                                 />
                                             </Grid>
                                         </Grid>
