@@ -135,6 +135,31 @@ class Register extends Component {
         }
     }
 
+    updateUser = (data)=>{
+        this.setState({
+            formData:{
+                email: data.email,
+                username: data.username,
+                password: data.password,
+                name: {
+                    firstname: data.name.firstname,
+                    lastname: data.name.firstname
+                },
+                address: {
+                    city: data.address.city,
+                    street: data.address.street,
+                    number: data.address.number,
+                    zipcode: data.address.zipcode,
+                    geolocation: {
+                        lat: data.address.geolocation.lat,
+                        long: data.address.geolocation.long
+                    }
+                },
+                phone: data.phone
+            }
+        })
+    }
+
 
     render() {
         const theme = createTheme();
@@ -417,6 +442,13 @@ class Register extends Component {
                                                             <DeleteIcon/>
                                                         </IconButton>
                                                     </Tooltip>
+                                                    <Tooltip title="Edit">
+                                                        <IconButton onClick={() => {
+                                                            this.updateUser(row);
+                                                        }}>
+                                                            <EditIcon color={"primary"}/>
+                                                        </IconButton>
+                                                    </Tooltip>
                                                 </TableCell>
                                                 <TableCell>{row.id}</TableCell>
                                                 <TableCell>{`${row.name.firstname}` + ' ' + `${row.name.lastname}`}</TableCell>
@@ -461,7 +493,7 @@ class Register extends Component {
                     </DialogTitle>
                     <DialogContent>
                         <DialogContentText id="alert-dialog-description">
-                            are you sure..! Deleting this User permanently deletes all records related to it.
+                            Are You Sure You Want to Delete {this.state.deleteId}..!
                         </DialogContentText>
                     </DialogContent>
                     <DialogActions>
