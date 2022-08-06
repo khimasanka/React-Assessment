@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import Typography from "@mui/material/Typography";
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from '@mui/icons-material/Edit';
 import Grid from "@mui/material/Grid";
 import {ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
 import Buttons from "@mui/material/Button";
@@ -7,11 +8,22 @@ import SnackBar from "../../components/common/snackBar/SnackBar";
 import {styleSheet} from "./styles"
 import {withStyles} from "@mui/styles";
 import Container from "@mui/material/Container";
-import {CssBaseline, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from "@mui/material";
+import {
+    CssBaseline, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle,
+    IconButton,
+    Paper,
+    Table,
+    TableBody,
+    TableCell,
+    TableContainer,
+    TableHead,
+    TableRow, Tooltip
+} from "@mui/material";
 import {ThemeProvider} from "@emotion/react";
 import {createTheme} from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import UserService from "../../services/UserService";
+import Button from "@mui/material/Button";
 
 class Register extends Component {
     constructor(props) {
@@ -37,7 +49,7 @@ class Register extends Component {
                 },
                 phone: ''
             },
-            data:[],
+            data: [],
             alert: false,
             message: '',
             btnText: 'Save',
@@ -45,7 +57,6 @@ class Register extends Component {
     }
 
     submitUser = async () => {
-        console.log(this.state.formData)
         let data = this.state.formData
         let res = await UserService.userRegister(data);
         if (res.status === 200) {
@@ -84,36 +95,46 @@ class Register extends Component {
                         long: ''
                     }
                 },
-                phone: ''
+                phone: '',
+                open: false,
+                deleteId:''
             }
         });
     }
 
-    getAllUsers = async ()=>{
+    getAllUsers = async () => {
         let res = await UserService.getAllUsers();
-        console.log(res)
         if (res.status === 200) {
             this.setState({
-                data: res.data.data
+                data: res.data
             });
         }
     }
 
-    componentDidMount = async ()=> {
+    componentDidMount = async () => {
         await this.getAllUsers();
+        console.log(this.state.data)
     }
 
-    createData(name, calories, fat, carbs, protein) {
-        return {name, calories, fat, carbs, protein};
+    openDialog = () => {
+        this.setState({
+            open: true
+        });
+    };
+
+    deleteById = async () => {
+        let res = await UserService.removeUser(this.state.deleteId);
+        console.log(res)
+        if (res.status === 200) {
+            await this.getAllUsers();
+            this.setState({
+                open: false
+            });
+        } else {
+            console.log('can not')
+        }
     }
 
-    rows = [
-        this.createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-        this.createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-        this.createData('Eclair', 262, 16.0, 24, 6.0),
-        this.createData('Cupcake', 305, 3.7, 67, 4.3),
-        this.createData('Gingerbread', 356, 16.0, 49, 3.9),
-    ];
 
     render() {
         const theme = createTheme();
@@ -122,7 +143,6 @@ class Register extends Component {
             <>
                 <ThemeProvider theme={theme}>
                     <CssBaseline/>
-
                     <Container component="main" maxWidth="lg" sx={{mb: 4}}>
                         <Paper variant="outlined" sx={{my: {xs: 3, md: 6}, p: {xs: 2, md: 3}}}>
                             <h1 className={"regHeader"} align="center">
@@ -364,32 +384,55 @@ class Register extends Component {
 
                 <div className={classes.container}>
                     <Grid container md={10} sm={11}>
-                        <TableContainer component={Paper}>
-                            <Table sx={{minWidth: 650}} size="small" aria-label="a dense table">
+                        <TableContainer component={Paper} sx={{maxHeight: 440}}>
+                            <Table stickyHeader sx={{minWidth: 650}} size="small" aria-label="User Details">
                                 <TableHead>
                                     <TableRow>
-                                        <TableCell>Dessert (100g serving)</TableCell>
-                                        <TableCell align="right">Calories</TableCell>
-                                        <TableCell align="right">Fat&nbsp;(g)</TableCell>
-                                        <TableCell align="right">Carbs&nbsp;(g)</TableCell>
-                                        <TableCell align="right">Protein&nbsp;(g)</TableCell>
+                                        <TableCell align="center">Actions</TableCell>
+                                        <TableCell align="center">Id</TableCell>
+                                        <TableCell align="center">Full name</TableCell>
+                                        <TableCell align="center">City</TableCell>
+                                        <TableCell align="center">street</TableCell>
+                                        <TableCell align="center">number</TableCell>
+                                        <TableCell align="center">Zip code</TableCell>
+                                        <TableCell align="center">lat</TableCell>
+                                        <TableCell align="center">Long</TableCell>
+                                        <TableCell align="center">Email</TableCell>
+                                        <TableCell align="center">Username</TableCell>
+                                        <TableCell align="center">Password</TableCell>
+                                        <TableCell align="center">Phone</TableCell>
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
-                                    {this.rows.map((row) => (
-                                        <TableRow
-                                            key={row.name}
-                                            sx={{'&:last-child td, &:last-child th': {border: 0}}}
-                                        >
-                                            <TableCell component="th" scope="row">
-                                                {row.name}
-                                            </TableCell>
-                                            <TableCell align="right">{row.calories}</TableCell>
-                                            <TableCell align="right">{row.fat}</TableCell>
-                                            <TableCell align="right">{row.carbs}</TableCell>
-                                            <TableCell align="right">{row.protein}</TableCell>
-                                        </TableRow>
-                                    ))}
+                                    {
+                                        this.state.data.map((row) => (
+                                            <TableRow
+                                            >
+                                                <TableCell>
+                                                    <Tooltip title="Delete">
+                                                        <IconButton onClick={() => {
+                                                            this.setState({deleteId: row.id})
+                                                            this.openDialog()
+                                                        }}>
+                                                            <DeleteIcon/>
+                                                        </IconButton>
+                                                    </Tooltip>
+                                                </TableCell>
+                                                <TableCell>{row.id}</TableCell>
+                                                <TableCell>{`${row.name.firstname}` + ' ' + `${row.name.lastname}`}</TableCell>
+                                                <TableCell>{row.address.city}</TableCell>
+                                                <TableCell>{row.address.street}</TableCell>
+                                                <TableCell>{row.address.number}</TableCell>
+                                                <TableCell>{row.address.zipcode}</TableCell>
+                                                <TableCell>{row.address.geolocation.lat}</TableCell>
+                                                <TableCell>{row.address.geolocation.long}</TableCell>
+                                                <TableCell>{row.email}</TableCell>
+                                                <TableCell>{row.username}</TableCell>
+                                                <TableCell>{row.password}</TableCell>
+                                                <TableCell>{row.phone}</TableCell>
+                                            </TableRow>
+                                        ))
+                                    }
                                 </TableBody>
                             </Table>
                         </TableContainer>
@@ -405,6 +448,32 @@ class Register extends Component {
                     severity={this.state.severity}
                     variant={"filled"}
                 />
+                <Dialog
+                    open={this.state.open}
+                    onClose={() => {
+                        this.setState({open: false})
+                    }}
+                    aria-labelledby="alert-dialog-title"
+                    aria-describedby="alert-dialog-description"
+                >
+                    <DialogTitle id="alert-dialog-title">
+                        {"Do you want to Delete this User?"}
+                    </DialogTitle>
+                    <DialogContent>
+                        <DialogContentText id="alert-dialog-description">
+                            are you sure..! Deleting this User permanently deletes all records related to it.
+                        </DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={() => {
+                            this.setState({open: false})
+                        }}>Cancel
+                        </Button>
+                        <Button onClick={this.deleteById} autoFocus>
+                            Delete
+                        </Button>
+                    </DialogActions>
+                </Dialog>
             </>
         );
     }
