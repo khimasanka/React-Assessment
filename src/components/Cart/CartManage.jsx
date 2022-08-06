@@ -1,11 +1,54 @@
 import React, {Component} from 'react';
 import {createTheme} from "@mui/material/styles";
 import {ThemeProvider} from "@emotion/react";
-import {Autocomplete, Container, CssBaseline, Paper, Stack, TextField} from "@mui/material";
+import {Autocomplete, Container, CssBaseline, Paper, TextField} from "@mui/material";
 import Grid from "@mui/material/Grid";
 import {TextValidator, ValidatorForm} from "react-material-ui-form-validator";
+import UserService from "../../services/UserService";
+import ProductService from "../../services/ProductService";
 
 class CartManage extends Component {
+    constructor(props) {
+        super(props);
+        this.state={
+            formData:{
+                userId:'',
+                date:'',
+                products:[
+                    {
+                        productId:'',
+                        quantity:''
+                    }
+                ]
+            },
+            users:[],
+            products:[]
+        }
+    }
+
+    loadUsers = async () => {
+        let res = await UserService.getAllUsers()
+        if (res.status===200){
+            this.setState({
+                users:res.data
+            })
+        }
+    };
+
+    loadProducts = async ()=>{
+        let res = await ProductService.getAllProducts();
+        if (res.status===200){
+            this.setState({
+                products:res.data
+            })
+        }
+    }
+
+    componentDidMount = async () => {
+        await this.loadUsers();
+        await this.loadProducts();
+    };
+
     render() {
         const theme = createTheme();
         return (
@@ -35,7 +78,7 @@ class CartManage extends Component {
                                                     disablePortal
                                                     id="combo-box-demo"
                                                     fullWidth
-                                                    /*  options={this.state.categories}*/
+                                                    options={this.state.users.map((ids)=>(ids.id+' '+ids.name.firstname+' '+ids.name.lastname))}
                                                     renderInput={(params) => <TextValidator
                                                         required
                                                         /*    value={this.state.formData.category}*/
@@ -64,6 +107,7 @@ class CartManage extends Component {
                                                     required
                                                     disablePortal
                                                     id="combo-box-demo"
+                                                    options={this.state.products.map((title)=>(title.title))}
                                                     fullWidth
                                                     renderInput={(params) => <TextValidator
                                                         required

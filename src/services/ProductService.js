@@ -14,6 +14,19 @@ class ProductService{
         return await promise;
     };
 
+    getAllProducts = async () => {
+        const promise = new Promise((resolve => {
+            axios.get('products')
+                .then((res) => {
+                    return resolve(res);
+                })
+                .catch((err) => {
+                    return resolve(err);
+                });
+        }));
+        return await promise;
+    };
+
     saveProduct = async (data) => {
         console.log(data)
         const promise = new Promise((resolve => {

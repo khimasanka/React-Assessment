@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a7f1253e-46b2-4f52-831f-61141391170f" name="Changes" comment="validate product fields">
-      <change afterPath="$PROJECT_DIR$/src/components/Cart/CartManage.jsx" afterDir="false" />
+    <list default="true" id="a7f1253e-46b2-4f52-831f-61141391170f" name="Changes" comment="cart fields create">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Products/Products.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Products/Products.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Cart/CartManage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Cart/CartManage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/services/ProductService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/ProductService.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -68,7 +67,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1659755600168</updated>
-      <workItem from="1659755604380" duration="41807000" />
+      <workItem from="1659755604380" duration="44052000" />
     </task>
     <task id="LOCAL-00001" summary="set user search data to text fields and set alerts">
       <created>1659772723033</created>
@@ -112,7 +111,14 @@
       <option name="project" value="LOCAL" />
       <updated>1659792957270</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="cart fields create">
+      <created>1659800785819</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1659800785819</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -137,6 +143,7 @@
     <MESSAGE value="create card component for dashboard" />
     <MESSAGE value="set categories to auto complete" />
     <MESSAGE value="validate product fields" />
-    <option name="LAST_COMMIT_MESSAGE" value="validate product fields" />
+    <MESSAGE value="cart fields create" />
+    <option name="LAST_COMMIT_MESSAGE" value="cart fields create" />
   </component>
 </project>
