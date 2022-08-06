@@ -123,31 +123,46 @@ class Register extends Component {
     }
 
     searchUser = async () => {
-        let res = await UserService.searchUser(this.state.searchId);
-        if (res.status === 200) {
-            console.log(res.data);
+        if (this.state.searchId === '') {
             this.setState({
-                formData: {
-                    email: res.data.email,
-                    username: res.data.username,
-                    password: res.data.password,
-                    name: {
-                        firstname: res.data.name.firstname,
-                        lastname: res.data.name.lastname
-                    },
-                    address: {
-                        city:res.data.address.city,
-                        street: res.data.address.city,
-                        number: res.data.address.number,
-                        zipcode: res.data.address.zipcode,
-                        geolocation: {
-                            lat: res.data.address.geolocation.lat,
-                            long: res.data.address.geolocation.long
+                alert: true,
+                message: 'Please Enter User Id',
+                severity: 'error'
+            });
+        } else {
+            let res = await UserService.searchUser(this.state.searchId);
+            if (res.status === 200) {
+                if (res.data === null){
+                    this.setState({
+                        alert: true,
+                        message: 'User Id is Invalid',
+                        severity: 'warning'
+                    });
+                }else {
+                    this.setState({
+                        formData: {
+                            email: res.data.email,
+                            username: res.data.username,
+                            password: res.data.password,
+                            name: {
+                                firstname: res.data.name.firstname,
+                                lastname: res.data.name.lastname
+                            },
+                            address: {
+                                city: res.data.address.city,
+                                street: res.data.address.city,
+                                number: res.data.address.number,
+                                zipcode: res.data.address.zipcode,
+                                geolocation: {
+                                    lat: res.data.address.geolocation.lat,
+                                    long: res.data.address.geolocation.long
+                                }
+                            },
+                            phone: res.data.phone
                         }
-                    },
-                    phone: res.data.phone
+                    })
                 }
-            })
+            }
         }
     }
 
@@ -347,7 +362,7 @@ class Register extends Component {
                                                     required
                                                     fullWidth
                                                     variant="filled"
-                                                    validators={['required', 'isNumber', 'maxNumber:99999', 'matchRegexp:^[0-9]{5}$']}
+                                                    validators={['required', 'isString', 'minStringLength:3']}
                                                     size="small"
                                                     value={this.state.formData.address.zipcode}
                                                     onChange={(e) => {
@@ -397,7 +412,8 @@ class Register extends Component {
                                                     variant="filled"
                                                     size="small"
                                                     fullWidth
-                                                    validators={['required', 'isNumber', 'matchRegexp:^0?(7)[0|1|2|4|5|6|7|8]-?[0-9]{7}$']}
+                                                    /*  validators={['required', 'isNumber', 'matchRegexp:^0?(7)[0|1|2|4|5|6|7|8]-?[0-9]{7}$']}*/
+                                                    validators={['required', 'isString', 'minStringLength:10']}
                                                     errorMessages={['this field is required', 'Invalid Phone Number']}
                                                     value={this.state.formData.phone}
                                                     onChange={(e) => {
