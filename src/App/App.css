@@ -3,6 +3,10 @@
     margin: 0;
 }
 
+*{
+    font-family: Rubik;
+}
+
 .saveBtn{
     border-radius: 50px;
     background: #010606;
@@ -33,5 +37,9 @@
 .regHeader{
     font-family: 'Concert One', cursive;
     margin: 0;
+}
+
+.cardHover:hover{
+    transform: scale(1.04);
 }
 

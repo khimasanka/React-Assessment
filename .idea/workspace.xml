@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a7f1253e-46b2-4f52-831f-61141391170f" name="Changes" comment="set dashboard appbar">
-      <change afterPath="$PROJECT_DIR$/src/components/MainView/MainView.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/common/Card/Card.jsx" afterDir="false" />
+    <list default="true" id="a7f1253e-46b2-4f52-831f-61141391170f" name="Changes" comment="create card component for dashboard">
+      <change afterPath="$PROJECT_DIR$/src/components/Products/Products.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/App/App.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Appbar/Appbar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Appbar/Appbar.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/DashBoard/DashBoard.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/DashBoard/DashBoard.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/Home/HomePage.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/common/Card/Card.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/common/Card/Card.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -71,7 +69,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1659755600168</updated>
-      <workItem from="1659755604380" duration="27633000" />
+      <workItem from="1659755604380" duration="32910000" />
     </task>
     <task id="LOCAL-00001" summary="set user search data to text fields and set alerts">
       <created>1659772723033</created>
@@ -94,7 +92,14 @@
       <option name="project" value="LOCAL" />
       <updated>1659777368006</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="create card component for dashboard">
+      <created>1659784204068</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1659784204068</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -116,6 +121,7 @@
     <MESSAGE value="set user search data to text fields and set alerts" />
     <MESSAGE value="create 404 page" />
     <MESSAGE value="set dashboard appbar" />
-    <option name="LAST_COMMIT_MESSAGE" value="set dashboard appbar" />
+    <MESSAGE value="create card component for dashboard" />
+    <option name="LAST_COMMIT_MESSAGE" value="create card component for dashboard" />
   </component>
 </project>

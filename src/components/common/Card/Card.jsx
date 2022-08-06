@@ -8,7 +8,7 @@ import {CardActionArea, Grid} from '@mui/material';
 export default function ActionAreaCard({image,title,count}) {
     return (
         <Grid item xs={6} md={4} sm={4} lg={3}>
-            <Card sx={{maxWidth: 345}}>
+            <Card sx={{maxWidth: 345,transition:'0.4s',animation:'ease-in-out'}} className={'cardHover'}>
                 <CardActionArea>
                     <CardMedia
                         component="img"

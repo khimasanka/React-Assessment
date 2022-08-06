@@ -6,6 +6,7 @@ import Register from "../pages/Registration/Register";
 import NotFound from "../pages/404Page/NotFound";
 import DashBoard from "../pages/DashBoard/DashBoard";
 import MainView from "../components/MainView/MainView";
+import Products from "../components/Products/Products";
 
 function App() {
     return (
@@ -15,7 +16,7 @@ function App() {
             <Route path="/register" element={<Register/>}/>
             <Route exact  path="/dashboard" element={<DashBoard/>}>
                 <Route index element={<MainView/>}/>
-                <Route path="products" element={<Login/>}/>
+                <Route path="products" element={<Products/>}/>
                 <Route path="cart" element={<Login/>}/>
             </Route>
         </Routes>
