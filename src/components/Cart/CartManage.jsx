@@ -6,6 +6,8 @@ import Grid from "@mui/material/Grid";
 import {TextValidator, ValidatorForm} from "react-material-ui-form-validator";
 import UserService from "../../services/UserService";
 import ProductService from "../../services/ProductService";
+import Box from "@mui/material/Box";
+import Buttons from "@mui/material/Button";
 
 class CartManage extends Component {
     constructor(props) {
@@ -44,6 +46,10 @@ class CartManage extends Component {
         }
     }
 
+    submitOrder =()=>{
+
+    }
+
     componentDidMount = async () => {
         await this.loadUsers();
         await this.loadProducts();
@@ -70,7 +76,7 @@ class CartManage extends Component {
                                 justifyContent: 'center'
                             }}>
                                 <Grid container sm={8} sx={12} lg={8} md={8} mt={4}>
-                                    <ValidatorForm ref="form">
+                                    <ValidatorForm ref="form" onSubmit={this.submitOrder}>
                                         <Grid container spacing={3}>
                                             <Grid item xs={12} md={6}>
                                                 <Autocomplete
@@ -81,13 +87,14 @@ class CartManage extends Component {
                                                     options={this.state.users.map((ids)=>(ids.id+' '+ids.name.firstname+' '+ids.name.lastname))}
                                                     renderInput={(params) => <TextValidator
                                                         required
-                                                        /*    value={this.state.formData.category}*/
+                                                        value={this.state.formData.products.productId}
                                                         onChange={(e) => {
-                                                            /* let data = this.state.formData
-                                                             data.category = e.target.value
-                                                             this.setState({data})*/
+                                                             let data = this.state.formData.products
+                                                             data.productId = e.target.value
+                                                             this.setState({data})
                                                         }}
-                                                        {...params} label="Username"/>}
+                                                        {...params} label="Username"/>
+                                                    }
                                                 />
                                             </Grid>
                                             <Grid item xs={12} md={6}>
@@ -96,7 +103,6 @@ class CartManage extends Component {
                                                     label="Birthday"
                                                     type="date"
                                                     fullWidth
-                                                    defaultValue="2022-8-9"
                                                     InputLabelProps={{
                                                         shrink: true,
                                                     }}
@@ -125,6 +131,16 @@ class CartManage extends Component {
                                                 />
                                             </Grid>
                                         </Grid>
+                                        <Box sx={{display: 'flex', justifyContent: 'flex-end'}}>
+                                            <Buttons
+                                                     sx={{mt: 3, ml: 1, fontSize: 15, fontWeight: "bold"}}
+                                                     color="secondary">
+                                                Clear
+                                            </Buttons>
+                                            <button className={'saveBtn'} type="submit" style={{mt: 3, ml: 1}}>
+                                                Save
+                                            </button>
+                                        </Box>
                                     </ValidatorForm>
                                 </Grid>
                             </div>
