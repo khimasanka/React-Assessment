@@ -15,42 +15,43 @@ class Products extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            formData:{
-                title:'',
-                price:'',
-                description:'',
-                image:null,
-                category:''
+            formData: {
+                title: '',
+                price: '',
+                description: '',
+                image: null,
+                category: ''
             },
             categories: [],
-            btnText:'Save',
-            image:null,
+            btnText: 'Save',
+            image: null,
             alert: false,
             message: '',
             severity: 'success'
         }
     }
 
-    getProduct =async ()=>{
+    getProduct = async () => {
         let res = await ProductService.getAllCategories();
-        if (res.status === 200){
+        if (res.status === 200) {
             this.setState({
-                categories:res.data
+                categories: res.data
             })
         }
     }
 
-    saveProduct =async ()=>{
+    saveProduct = async () => {
         this.state.formData.image = this.state.image
         let data = this.state.formData
         let res = await ProductService.saveProduct(data);
-        if (res.status === 200){
+        if (res.status === 200) {
+            this.clearFields();
             this.setState({
                 alert: true,
                 message: 'Save Success',
                 severity: 'success'
             })
-        }else{
+        } else {
             this.setState({
                 alert: true,
                 message: 'Something Went Wrong',
@@ -62,6 +63,19 @@ class Products extends Component {
     componentDidMount = async () => {
         await this.getProduct()
     }
+
+    clearFields = () => {
+        this.setState({
+            formData: {
+                title: '',
+                price: '',
+                description: '',
+                image: null,
+                category: ''
+            }
+        });
+    }
+
 
     render() {
         const theme = createTheme();
@@ -156,15 +170,16 @@ class Products extends Component {
                                                     }}
                                                 />
                                             </Grid>
-                                            <Grid item xs={12} md={6} >
-                                                <FormLabel htmlFor={"image"} sx={{paddingBottom:1}} component="legend">Choose Image</FormLabel>
+                                            <Grid item xs={12} md={6}>
+                                                <FormLabel htmlFor={"image"} sx={{paddingBottom: 1}} component="legend">Choose
+                                                    Image</FormLabel>
                                                 <input
                                                     required
                                                     id="image"
                                                     name="file"
                                                     type="file"
                                                     value={this.state.formData.image}
-                                                    onChange={(e)=>{
+                                                    onChange={(e) => {
                                                         if (e.target.files && e.target.files[0]) {
                                                             this.setState({
                                                                 image: URL.createObjectURL(e.target.files[0])
@@ -178,14 +193,14 @@ class Products extends Component {
                                                 <Avatar
                                                     alt="Image"
                                                     src={this.state.image}
-                                                    sx={{ width: 100, height: 100 }}
+                                                    sx={{width: 100, height: 100}}
                                                 />
                                             </Grid>
                                         </Grid>
                                         <Box sx={{display: 'flex', justifyContent: 'flex-end'}}>
-                                            <Buttons
-                                                     sx={{mt: 3, ml: 1, fontSize: 15, fontWeight: "bold"}}
-                                                     color="secondary">
+                                            <Buttons onClick={this.clearFields}
+                                                sx={{mt: 3, ml: 1, fontSize: 15, fontWeight: "bold"}}
+                                                color="secondary">
                                                 Clear
                                             </Buttons>
                                             <button className={'saveBtn'} type="submit" style={{mt: 3, ml: 1}}>
