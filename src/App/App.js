@@ -14,7 +14,9 @@ function App() {
             <Route path="*" element={<NotFound/>} exact/>
             <Route path="/home" element={<HomePage/>}/>
             <Route path="/register" element={<Register/>}/>
-            <Route path="/dashboard" element={<DashBoard/>}/>
+            <Route path="/dashboard" element={<DashBoard/>}>
+                <Route index element={<DashBoard/>}/>
+            </Route>
         </Routes>
     );
 }
