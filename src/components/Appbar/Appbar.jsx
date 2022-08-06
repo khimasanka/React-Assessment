@@ -20,7 +20,7 @@ import {Link} from "react-router-dom";
 const pages = [
     {
         text:'Products',
-        to:'/dashboard'
+        to:'/dashboard/products'
     },
     {
         text: 'Cart',

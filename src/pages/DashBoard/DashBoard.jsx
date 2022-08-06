@@ -7,6 +7,7 @@ class DashBoard extends Component {
         return (
             <>
                 <Appbar/>
+                <Outlet/>
             </>
         );
     }

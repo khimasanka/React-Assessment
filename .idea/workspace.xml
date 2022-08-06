@@ -2,10 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a7f1253e-46b2-4f52-831f-61141391170f" name="Changes" comment="set dashboard appbar">
+      <change afterPath="$PROJECT_DIR$/src/components/MainView/MainView.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/common/Card/Card.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App/App.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Appbar/Appbar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Appbar/Appbar.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/DashBoard/DashBoard.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/DashBoard/DashBoard.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/Home/HomePage.jsx" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,7 +28,6 @@
   </component>
   <component name="ProjectId" id="2CxsVY1NBHGBCCG6EnvScG8Mat4" />
   <component name="ProjectViewState">
-    <option name="autoscrollFromSource" value="true" />
     <option name="flattenPackages" value="true" />
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -69,7 +71,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1659755600168</updated>
-      <workItem from="1659755604380" duration="23306000" />
+      <workItem from="1659755604380" duration="27633000" />
     </task>
     <task id="LOCAL-00001" summary="set user search data to text fields and set alerts">
       <created>1659772723033</created>
