@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Autocomplete, CssBaseline, InputLabel, OutlinedInput, Paper, Select} from "@mui/material";
+import {Autocomplete, CssBaseline, FormLabel, InputLabel, OutlinedInput, Paper, Select} from "@mui/material";
 import Container from "@mui/material/Container";
 import {TextValidator, ValidatorForm} from "react-material-ui-form-validator";
 import Grid from "@mui/material/Grid";
@@ -8,6 +8,7 @@ import Buttons from "@mui/material/Button";
 import {ThemeProvider} from "@emotion/react";
 import {createTheme} from "@mui/material/styles";
 import ProductService from "../../services/ProductService";
+import Avatar from "@mui/material/Avatar";
 
 class Products extends Component {
     constructor(props) {
@@ -21,7 +22,8 @@ class Products extends Component {
                 category:''
             },
             categories: [],
-            btnText:'Save'
+            btnText:'Save',
+            image:null
         }
     }
 
@@ -36,6 +38,7 @@ class Products extends Component {
 
     componentDidMount = async () => {
         await this.getProduct()
+        console.log(this.state.image)
     }
 
     render() {
@@ -113,10 +116,11 @@ class Products extends Component {
                                                         {...params} label="Category"/>}
                                                 />
                                             </Grid>
+
                                             <Grid item xs={12} md={6}>
                                                 <TextValidator
                                                     id="outlined-multiline-static"
-                                                    label="Multiline"
+                                                    label="Description"
                                                     fullWidth
                                                     required
                                                     multiline
@@ -130,9 +134,34 @@ class Products extends Component {
                                                     }}
                                                 />
                                             </Grid>
+                                            <Grid item xs={12} md={6} >
+                                                <FormLabel htmlFor={"image"} sx={{paddingBottom:1}} component="legend">Choose Image</FormLabel>
+                                                <input
+                                                    required
+                                                    id="image"
+                                                    name="file"
+                                                    type="file"
+                                                    value={this.state.formData.image}
+                                                    onChange={(e)=>{
+                                                        if (e.target.files && e.target.files[0]) {
+                                                            this.setState({
+                                                                image: URL.createObjectURL(e.target.files[0])
+                                                            });
+                                                        }
+                                                    }}
+                                                />
+                                            </Grid>
+
+                                            <Grid item xs={4} md={3}>
+                                                <Avatar
+                                                    alt="Remy Sharp"
+                                                    src={this.state.image}
+                                                    sx={{ width: 100, height: 100 }}
+                                                />
+                                            </Grid>
                                         </Grid>
                                         <Box sx={{display: 'flex', justifyContent: 'flex-end'}}>
-                                            <Buttons onClick={this.clearFields}
+                                            <Buttons
                                                      sx={{mt: 3, ml: 1, fontSize: 15, fontWeight: "bold"}}
                                                      color="secondary">
                                                 Clear
