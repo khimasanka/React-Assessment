@@ -112,12 +112,6 @@ class CartManage extends Component {
                                                     options={this.state.users.map((ids)=>(ids.id+' '+ids.name.firstname+' '+ids.name.lastname))}
                                                     renderInput={(params) => <TextValidator
                                                         required
-                                                      /*  value={this.state.formData.products[1]}
-                                                        onChange={(e) => {
-                                                             let data = this.state.formData.products
-                                                             data.productId = e.target.value
-                                                             this.setState({data})
-                                                        }}*/
                                                         {...params} label="Username"/>
                                                     }
                                                 />
@@ -128,6 +122,15 @@ class CartManage extends Component {
                                                     label="Date"
                                                     type="date"
                                                     fullWidth
+                                                    value={this.state.formData.date}
+                                                    onChange={(event => {
+                                                        console.log(event.target.value)
+                                                        this.setState({
+                                                            formData:{
+                                                                date:event.target.value
+                                                            }
+                                                        });
+                                                    })}
                                                     InputLabelProps={{
                                                         shrink: true,
                                                     }}
@@ -139,6 +142,18 @@ class CartManage extends Component {
                                                     disablePortal
                                                     id="combo-box-demo"
                                                     options={this.state.products.map((title)=>(title.title))}
+                                                    value={this.state.formData.products.map((val)=>(val.productId))}
+                                                    onChange={(event,newValue)=>{
+                                                        const result = this.state.products.find(({title})=> title ===newValue)
+                                                        console.log(result.id)
+                                                        this.setState({
+                                                            formData:{
+                                                                products:[{
+                                                                    productId:result.id
+                                                                }]
+                                                            }
+                                                        });
+                                                    }}
                                                     fullWidth
                                                     renderInput={(params) => <TextValidator
                                                         required
