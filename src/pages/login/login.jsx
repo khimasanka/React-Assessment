@@ -15,7 +15,9 @@ import {Component} from "react";
 import { ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
 import LoginService from "../../services/LoginService";
 import localStorageService from "../../LocalStorageService"
-
+import {Backdrop} from "@mui/material";
+import CircularProgress from '@mui/material/CircularProgress';
+import SnackBar from "../../components/common/snackBar/SnackBar";
 
 class Login extends Component {
     constructor(props) {
@@ -24,20 +26,30 @@ class Login extends Component {
             formData:{
                 username:'',
                 password:''
-            }
+            },
+            open:false
         }
     }
 
 
 
     handleSubmit = async () => {
+        this.setState({
+            open:true
+        })
         let data = this.state.formData
         let res = await LoginService.loginUser(data);
         if (res.status === 200) {
             const accessToken = res.data.token
             localStorageService.setItem('accessToken',accessToken)
+            this.props.history.push('/dashboard')
         } else {
-            console.log('wrong');
+            this.setState({
+                open:false,
+                alert: true,
+                message: 'Invalid Username or Password',
+                severity: 'error'
+            })
         }
 
     }
@@ -105,6 +117,17 @@ class Login extends Component {
                             >
                                 Sign In
                             </Button>
+                            <Backdrop
+                                sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                                open={this.state.open}
+                                onClick={()=>{
+                                    this.setState({
+                                        open:false
+                                    });
+                                }}
+                            >
+                                <CircularProgress color="inherit" />
+                            </Backdrop>
                             <Grid container style={{
                                 display: 'flex',
                                 justifyContent: 'center',
@@ -112,14 +135,23 @@ class Login extends Component {
                                 flexWrap: 'wrap'
                             }}>
                                 <Grid item xs>
-                                    <Link href="/register" variant="body2">
+                                    <Link to="/register" variant="body2">
                                         Create New Account
                                     </Link>
                                 </Grid>
                             </Grid>
                         </ValidatorForm>
                     </Box>
-
+                    <SnackBar
+                        open={this.state.alert}
+                        onClose={() => {
+                            this.setState({alert: false})
+                        }}
+                        message={this.state.message}
+                        autoHideDuration={3000}
+                        severity={this.state.severity}
+                        variant={"filled"}
+                    />
                 </Container>
             </ThemeProvider>
         );
