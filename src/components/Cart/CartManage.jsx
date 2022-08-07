@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {createTheme} from "@mui/material/styles";
 import {ThemeProvider} from "@emotion/react";
-import {Autocomplete, Container, CssBaseline, Paper, TextField} from "@mui/material";
+import {Autocomplete, Container, CssBaseline, Paper, Select, TextField} from "@mui/material";
 import Grid from "@mui/material/Grid";
 import {TextValidator, ValidatorForm} from "react-material-ui-form-validator";
 import UserService from "../../services/UserService";
@@ -50,6 +50,10 @@ class CartManage extends Component {
 
     }
 
+    clearFields =() =>{
+        console.log(this.state.formData)
+    }
+
     componentDidMount = async () => {
         await this.loadUsers();
         await this.loadProducts();
@@ -84,15 +88,36 @@ class CartManage extends Component {
                                                     disablePortal
                                                     id="combo-box-demo"
                                                     fullWidth
+                                                 /*   value={this.state.formData.products.map((val)=>(val.productId))}
+                                                    onChange={(event,newValue)=>{
+                                                        console.log(newValue)
+                                                        this.setState({
+                                                            formData:{
+                                                                products:[{
+                                                                    productId:newValue
+                                                                }]
+                                                            }
+                                                        });
+                                                    }}*/
+                                                    value={this.state.formData.userId}
+                                                    onChange={((event, value) => {
+                                                        const text = value.split('')
+                                                        console.log(text[0]);
+                                                        this.setState({
+                                                            formData:{
+                                                                userId:text[0]
+                                                            }
+                                                        });
+                                                    })}
                                                     options={this.state.users.map((ids)=>(ids.id+' '+ids.name.firstname+' '+ids.name.lastname))}
                                                     renderInput={(params) => <TextValidator
                                                         required
-                                                        value={this.state.formData.products.productId}
+                                                      /*  value={this.state.formData.products[1]}
                                                         onChange={(e) => {
                                                              let data = this.state.formData.products
                                                              data.productId = e.target.value
                                                              this.setState({data})
-                                                        }}
+                                                        }}*/
                                                         {...params} label="Username"/>
                                                     }
                                                 />
@@ -100,7 +125,7 @@ class CartManage extends Component {
                                             <Grid item xs={12} md={6}>
                                                 <TextField
                                                     id="date"
-                                                    label="Birthday"
+                                                    label="Date"
                                                     type="date"
                                                     fullWidth
                                                     InputLabelProps={{
@@ -123,7 +148,7 @@ class CartManage extends Component {
                                             <Grid item xs={12} md={6}>
                                                 <TextValidator
                                                     required
-                                                    label="Title"
+                                                    label="QTY"
                                                     fullWidth
                                                     type='number'
                                                     variant="outlined"
@@ -132,7 +157,7 @@ class CartManage extends Component {
                                             </Grid>
                                         </Grid>
                                         <Box sx={{display: 'flex', justifyContent: 'flex-end'}}>
-                                            <Buttons
+                                            <Buttons onClick={this.clearFields}
                                                      sx={{mt: 3, ml: 1, fontSize: 15, fontWeight: "bold"}}
                                                      color="secondary">
                                                 Clear

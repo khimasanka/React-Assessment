@@ -16,6 +16,8 @@ import LocalStorageService from "../../LocalStorageService";
 import jwt_decode from "jwt-decode";
 import {useEffect} from "react";
 import {Link} from "react-router-dom";
+import {Backdrop} from "@mui/material";
+import CircularProgress from "@mui/material/CircularProgress";
 
 const pages = [
     {
@@ -42,6 +44,7 @@ const Appbar = () => {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
     const [name, setName] = React.useState('');
+    const [open, setOpen] = React.useState(false);
 
     async function setToken() {
         const accessToken = await LocalStorageService.getItem("accessToken");
@@ -64,6 +67,7 @@ const Appbar = () => {
 
     const handleCloseNavMenu = () => {
         setAnchorElNav(null);
+        setOpen(true)
     };
 
     const handleCloseUserMenu = () => {
@@ -125,7 +129,7 @@ const Appbar = () => {
                             {pages.map((page) => (
                                 <MenuItem key={page.text} onClick={handleCloseNavMenu}>
                                     <Link to={page.to}>
-                                        <Typography textAlign="center">{page.text}</Typography>
+                                        <Typography  textAlign="center">{page.text}</Typography>
                                     </Link>
                                 </MenuItem>
                             ))}
@@ -162,9 +166,18 @@ const Appbar = () => {
                             </Button>
                         ))}
                     </Box>
+                    <Backdrop
+                        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                        open={open}
+                        onClick={()=>{
+                            setOpen(false)
+                        }}
+                    >
+                        <CircularProgress color="inherit" />
+                    </Backdrop>
 
                     <Box sx={{display: 'flex', direction: 'row', justifyContent: 'flex-end', alignItems: 'center'}}>
-                        <h1 style={{marginRight: 20, marginTop: 0, marginBottom: 0}}>{name}</h1>
+                        <h2 style={{marginRight: 20, marginTop: 0, marginBottom: 0}}>{name}</h2>
                         <Tooltip title="Open settings">
                             <IconButton onClick={handleOpenUserMenu} sx={{p: 0}}>
                                 <Avatar alt="Remy Sharp"

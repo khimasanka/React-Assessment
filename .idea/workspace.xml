@@ -3,7 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="a7f1253e-46b2-4f52-831f-61141391170f" name="Changes" comment="set values to autocompletes">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/login/login.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/login/login.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Appbar/Appbar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Appbar/Appbar.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Cart/CartManage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Cart/CartManage.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,7 +68,7 @@
       <option name="presentableId" value="Default" />
       <updated>1659755600168</updated>
       <workItem from="1659755604380" duration="45895000" />
-      <workItem from="1659838609811" duration="1690000" />
+      <workItem from="1659838609811" duration="5923000" />
     </task>
     <task id="LOCAL-00001" summary="set user search data to text fields and set alerts">
       <created>1659772723033</created>
