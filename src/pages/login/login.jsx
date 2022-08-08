@@ -37,12 +37,13 @@ class Login extends Component {
         this.setState({
             open:true
         })
+
         let data = this.state.formData
         let res = await LoginService.loginUser(data);
         if (res.status === 200) {
             const accessToken = res.data.token
             localStorageService.setItem('accessToken',accessToken)
-            this.props.history.push('/dashboard')
+            window.open("/dashboard","_self")
         } else {
             this.setState({
                 open:false,
@@ -51,7 +52,6 @@ class Login extends Component {
                 severity: 'error'
             })
         }
-
     }
 
     render() {

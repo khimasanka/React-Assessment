@@ -1,13 +1,15 @@
 import React, {Component} from 'react';
 import {createTheme} from "@mui/material/styles";
 import {ThemeProvider} from "@emotion/react";
-import {Autocomplete, Container, CssBaseline, Paper, Select, TextField} from "@mui/material";
+import {Autocomplete, Container, CssBaseline, Paper, TextField} from "@mui/material";
 import Grid from "@mui/material/Grid";
 import {TextValidator, ValidatorForm} from "react-material-ui-form-validator";
 import UserService from "../../services/UserService";
 import ProductService from "../../services/ProductService";
 import Box from "@mui/material/Box";
 import Buttons from "@mui/material/Button";
+import CartService from "../../services/CartService";
+import SnackBar from "../common/snackBar/SnackBar";
 
 class CartManage extends Component {
     constructor(props) {
@@ -24,7 +26,10 @@ class CartManage extends Component {
                 ]
             },
             users:[],
-            products:[]
+            products:[],
+            alert: false,
+            message: '',
+            severity: 'success'
         }
     }
 
@@ -46,12 +51,37 @@ class CartManage extends Component {
         }
     }
 
-    submitOrder =()=>{
-
+    submitOrder = async ()=>{
+        let res = await CartService.createOrder(this.state.formData);
+        if (res.status === 200){
+            this.clearFields();
+            this.setState({
+                alert: true,
+                message: 'Save Success',
+                severity: 'success'
+            });
+        }else {
+            this.setState({
+                alert: true,
+                message: 'Something went wrong',
+                severity: 'error'
+            });
+        }
     }
 
     clearFields =() =>{
-        console.log(this.state.formData)
+        this.setState({
+            formData:{
+                userId:'',
+                date:'',
+                products:[
+                    {
+                        productId:'',
+                        quantity:''
+                    }
+                ]
+            }
+        });
     }
 
     componentDidMount = async () => {
@@ -88,26 +118,13 @@ class CartManage extends Component {
                                                     disablePortal
                                                     id="combo-box-demo"
                                                     fullWidth
-                                                 /*   value={this.state.formData.products.map((val)=>(val.productId))}
-                                                    onChange={(event,newValue)=>{
-                                                        console.log(newValue)
-                                                        this.setState({
-                                                            formData:{
-                                                                products:[{
-                                                                    productId:newValue
-                                                                }]
-                                                            }
-                                                        });
-                                                    }}*/
                                                     value={this.state.formData.userId}
                                                     onChange={((event, value) => {
                                                         const text = value.split('')
-                                                        console.log(text[0]);
-                                                        this.setState({
-                                                            formData:{
-                                                                userId:text[0]
-                                                            }
-                                                        });
+                                                        let data = this.state.formData
+                                                        data.userId = text[0]
+                                                        this.setState({data})
+
                                                     })}
                                                     options={this.state.users.map((ids)=>(ids.id+' '+ids.name.firstname+' '+ids.name.lastname))}
                                                     renderInput={(params) => <TextValidator
@@ -125,11 +142,9 @@ class CartManage extends Component {
                                                     value={this.state.formData.date}
                                                     onChange={(event => {
                                                         console.log(event.target.value)
-                                                        this.setState({
-                                                            formData:{
-                                                                date:event.target.value
-                                                            }
-                                                        });
+                                                        let data = this.state.formData
+                                                        data.date = event.target.value
+                                                        this.setState({data})
                                                     })}
                                                     InputLabelProps={{
                                                         shrink: true,
@@ -166,8 +181,9 @@ class CartManage extends Component {
                                                     label="QTY"
                                                     fullWidth
                                                     type='number'
+                                                    value={this.state.formData.products.map((val)=>(val.quantity))}
                                                     variant="outlined"
-                                                    validators={['required', 'isString', 'maxStringLength:25', 'minStringLength:2']}
+                                                    validators={['required', 'isNumber']}
                                                 />
                                             </Grid>
                                         </Grid>
@@ -187,6 +203,16 @@ class CartManage extends Component {
                         </Paper>
                     </Container>
                 </ThemeProvider>
+                <SnackBar
+                    open={this.state.alert}
+                    onClose={() => {
+                        this.setState({alert: false})
+                    }}
+                    message={this.state.message}
+                    autoHideDuration={3000}
+                    severity={this.state.severity}
+                    variant={"filled"}
+                />
             </>
         );
     }

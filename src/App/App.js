@@ -9,13 +9,14 @@ import MainView from "../components/MainView/MainView";
 import Products from "../components/Products/Products";
 import CartManage from "../components/Cart/CartManage";
 
+
 function App() {
     return (
         <Routes>
-            <Route path="/" element={<Login/>} exact/>
-            <Route path="*" element={<NotFound/>} exact/>
+            <Route exact path="/" element={<Login/>}/>
+            <Route path="*" element={<NotFound/>}/>
             <Route path="/register" element={<Register/>}/>
-            <Route exact  path="/dashboard" element={<DashBoard/>}>
+            <Route path="/dashboard" element={<DashBoard/>}>
                 <Route index element={<MainView/>}/>
                 <Route path="products" element={<Products/>}/>
                 <Route path="cart" element={<CartManage/>}/>
