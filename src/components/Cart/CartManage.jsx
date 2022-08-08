@@ -53,17 +53,25 @@ class CartManage extends Component {
 
     submitOrder = async ()=>{
         let res = await CartService.createOrder(this.state.formData);
-        if (res.status === 200){
-            this.clearFields();
-            this.setState({
-                alert: true,
-                message: 'Save Success',
-                severity: 'success'
-            });
+        if (this.state.formData.products.map((val)=>(val.quantity))>0){
+            if (res.status === 200){
+                this.clearFields();
+                this.setState({
+                    alert: true,
+                    message: 'Save Success',
+                    severity: 'success'
+                });
+            }else {
+                this.setState({
+                    alert: true,
+                    message: 'Something went wrong',
+                    severity: 'error'
+                });
+            }
         }else {
             this.setState({
                 alert: true,
-                message: 'Something went wrong',
+                message: 'Set Valid Quantity',
                 severity: 'error'
             });
         }
@@ -160,11 +168,15 @@ class CartManage extends Component {
                                                     value={this.state.formData.products.map((val)=>(val.productId))}
                                                     onChange={(event,newValue)=>{
                                                         const result = this.state.products.find(({title})=> title ===newValue)
+                                                        let data = this.state.formData.products.map((val)=>(val.quantity))
+                                                        let uId = this.state.formData.userId
                                                         console.log(result.id)
                                                         this.setState({
                                                             formData:{
+                                                                userId:uId,
                                                                 products:[{
-                                                                    productId:result.id
+                                                                    productId:result.id,
+                                                                    quantity:data
                                                                 }]
                                                             }
                                                         });
@@ -176,7 +188,7 @@ class CartManage extends Component {
                                                 />
                                             </Grid>
                                             <Grid item xs={12} md={6}>
-                                                <TextValidator
+                                                <TextField
                                                     required
                                                     label="QTY"
                                                     fullWidth
@@ -184,6 +196,21 @@ class CartManage extends Component {
                                                     value={this.state.formData.products.map((val)=>(val.quantity))}
                                                     variant="outlined"
                                                     validators={['required', 'isNumber']}
+                                                    onChange={(e)=>{
+                                                        let data = this.state.formData.products.map((val)=>(val.productId))
+                                                        let uId = this.state.formData.userId
+                                                        this.setState({
+                                                            formData:{
+                                                                userId:uId,
+                                                                products:[
+                                                                    {
+                                                                        productId:data,
+                                                                        quantity:e.target.value
+                                                                    }
+                                                                ]
+                                                            }
+                                                        });
+                                                    }}
                                                 />
                                             </Grid>
                                         </Grid>
