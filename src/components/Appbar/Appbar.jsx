@@ -128,7 +128,7 @@ const Appbar = () => {
                         >
                             {pages.map((page) => (
                                 <MenuItem key={page.text} onClick={handleCloseNavMenu}>
-                                    <Link to={page.to}>
+                                    <Link to={page.to} style={{textDecoration:'none'}}>
                                         <Typography  textAlign="center">{page.text}</Typography>
                                     </Link>
                                 </MenuItem>
